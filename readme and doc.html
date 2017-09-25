@@ -1,0 +1,163 @@
+<html>
+<head>
+<title>Captain ALM - Player 3.5 Readme and Documentation</title>
+</head>
+<body>
+<a name="readme" />
+<h1><U>Player 3.5 Readme and Documentation By Captain ALM</u></h1>
+<p></p>
+<h2><U>How to install</u></h2>
+<ol>
+<li>Extract the compressed file (.zip you downloaded).
+<li>Open the player folder.
+<li>Double click the applicaition (player can runs in win vista+).
+<li>If it asks you to install features, install them if it is your computer you are using.
+<li>If it is your computer you are using and you are on an Administrator Account, then run certdep.exe to install my certificates to your computer.
+</ol>
+<p></p>
+<h2><U>How to use</u></h2>
+<ol>
+<li>Double click the applicaition (or just drag the data folder/archive on top of the applicaition).</li>
+<li>If a prompt comes up choose a player archive data file.</li>
+<li>Wait for it to open.</li>
+<li>And you are ready to use the presentation!</li>
+<li>More informaition on the help video playlist: <a href="https://www.youtube.com/playlist?list=PLDQT33N0iG_5uuj0dH7pRBwm2do_Q9-QV">Youtube Playlist</a>.</li>
+<li>Program is under gpl v3 2007 license (which can be found in the files you extracted) - (C) Captain ALM 2013-2017 (I allow Distribution [IaD]).</li>
+<li>You can get command line help by running it with the -? or -help command-line switches.</li>
+<li><b>Note: This does not support winxp or below (now dotnet4.5 only).</b></li>
+<li><b>Note: This is the last version of Player.</b></li>
+</ol>
+<br />
+<a name="doc" />
+<h2><U>Doctumentation</u></h2>
+<ol>
+<li><a href="#intro">Introduction</a>
+<li><a href="#format">File Formats and Folder Formats</a>
+<li><a href="#syntax">Syntax</a>
+<li><a href="#scripting">Scripting Data Files</a>
+<li><a href="#scrref">Scripting Reference</a>
+<li><a href="#type">type (object type)</a>
+<li><a href="#loc"><s><del>loc</s></del> location (location)</a>
+<li><a href="#anims"><s><del>anims</s></del> show_animation (animation show)</a>
+<li><a href="#animh"><s><del>animh</s></del> hide_animation (animation hide)</a>
+<li><a href="#data">data (data object)</a>
+<li><s><del><a href="#text">text (text)</a></s></del>
+<li><s><del><a href="#imgn">imgn (image)</a></s></del>
+<li><s><del><a href="#imga">imga (animated image)</a></s></del>
+<li><s><del><a href="#run">run (run program)</a></s></del>
+</ol>
+
+<br /><a name="intro" /><br />
+<h3><U>Introduction</u></h3><br />
+This documentaition will show you how to use the scripting langauge.<br />
+This scripting can be used in the data file in the data folder/archive.<br />
+You pack the folder into a zip archive (You can do this within the program by opening the folder up with the program and then pressing shift+F2).<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="format" /><br />
+<h3><U>File Format</u></h3><br />
+You must use the .txt file format for data files in the data format.<br />
+Code in either notepad or notepad++.<br />
+You must use the .jpg,.gif,.png formats for the pictures.<br />
+You must use the .wav,.mp3,.wma,.ogg formats for sound.<br />
+You must use the .wav,.mp3,.wma,.ogg,.ogv,.avi,.wmv,.mp4,.mpeg,.mpg,.mpeg-4 formats for media.<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="syntax" /><br />
+<h3><U>Scripting Syntax</u></h3><br />
+This is the synatx for the data files:<br />
+An object name.<br />
+Then a ':'<br />
+Then the parameters required for the object after the : spaced by a comma.<br />
+Then a ';'<br />
+Eg: location:5,5;<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="scripting" /><br />
+<h3><U>Inroduction to Data File Scripting</u></h3><br />
+Quiz file system involves using the <a href="#syntax">Scripting Syntax</a> to code the data files.<br />
+These data files are in .txt format and can be named anything.<br />
+On the first line, put in the page number of the data file.<br />
+On the next lines you can put the code, each object section is defined on a different line.<br />
+Eg:<br />
+1<br />
+type:static_image;location:5,5;data:splash.png,500,239;show_animation:1000,1,true;hide_animation:1000,1,true;<br />
+type:text;data:hello world,Green,Arial,36,!;show_animation:1000,5,false;hide_animation:1000,1,true;location:100,100;<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br />
+<a name="scrref" /><br />
+<h3><U>Scripting Reference</u></h3><br />
+Deprecated objects/syntax have a strikethrough through them Eg:<s><del>loc</s></del>.<br />
+These deprecated objects/synatax can still be used by enabling legacy mode by pressing F4 and then yes or using the command line switch -legacy=true.<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="type" /><br />
+<h3><U>Type</u></h3><br />
+type:aig/animated_image/img/image/static_image/tit/title/txt/text/sound/music/audio/media/video/motion_picture/run/background_color/background_colour/background_image;<br />
+Type of object.<br />
+aig/animated_image = animated image, img/image/static_image = static image, tit/title = title bar text, txt/text = text, run = run program, sound/music/audio = play sound, media/video/motion_picture = play media file, background_color/background_colour = background colour, background_image = background image.<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="loc" /><br />
+<h3><U>Location</u></h3><br />
+<s><del>loc</s></del>/location:x(number),y(number);<br />
+Locaition of object.<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="anims" /><br />
+<h3><U>Show Animation</u></h3><br />
+<s><del>anims</s></del>/show_animation:time(milliseconds),from(number),true/false(fade in/out);<br />
+The show animation of the object.<br />
+The from number list: 0 = none, 1 = top center, 2 = top right, 3 = center right, 4 = bottom right, 5 = bottom center, 6 = bottom left, 7 = center left, 8 = top left.<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="animh" /><br />
+<h3><U>Hide Animation</u></h3><br />
+<s><del>animh</s></del>/hide_animation:time(milliseconds),from(number),true/false(fade in/out);<br />
+The hide animation of the object.<br />
+The from number list: 0 = none, 1 = top center, 2 = top right, 3 = center right, 4 = bottom right, 5 = bottom center, 6 = bottom left, 7 = center left, 8 = top left.<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="data" /><br />
+<h3><U>Data</u></h3><br />
+data:(arguments)...;<br />
+data:(text),(colour),(font),(size),(tooltip); [text]<br />
+data:(file name with no path (requires extention)),(width),(height),(tooltip); [static image]<br />
+data:(file name with no path (requires extention)),(width),(height),(speed),(tooltip); [animated image]<br />
+data:(file path),(arguments),true(no page redirect)/(number (redirect page)); [run]<br />
+data:(file name with no path (requires extention)),true/false(loop); [sound]<br />
+data:(file name with no path (requires extention))[of media],(file name with no path (requires extention))[of media placeholder image],true/false (autostart),true/false (loop),true/false (toolbar); [media]<br />
+data:(colour); [background colour]<br />
+data:(file name with no path (requires extention)); [background image]<br />
+data:(title bar text);<br />
+Object data.<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<s><del><br /><a name="text" /><br />
+<h3><U>Text</u></h3><br />
+text:(text),(colour),(font),(tooltip);<br />
+Text in an object that supports text (txt and tit).<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="imgn" /><br />
+<h3><U>Static Image</u></h3><br />
+imgn:(file name with no path (requires extention)),(width),(height),(tooltip);<br />
+A static image in the type (img).<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="imga" /><br />
+<h3><U>Animated Image</u></h3><br />
+imga:(file name with no path (requires extention)),(width),(height),(speed),(tooltip);<br />
+A animated image in the type (aig).<br />
+<a href="#doc">Return to Documentaition Contents</a><br />
+
+<br /><a name="run" /><br />
+<h3><U>Run Program</u></h3><br />
+run:(file path),(arguments),true(no page redirect)/(number (redirect page));<br />
+Allows to run a program using the run type.<br />
+<a href="#doc">Return to Documentaition Contents</a><br /></s></del>
+
+<br />
+</body>
+</html>

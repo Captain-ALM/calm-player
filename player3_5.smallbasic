@@ -1,0 +1,1909 @@
+'Program Distribution - GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+'(c) Captain ALM 2013-2017 (I allow Distribution(IaD))
+GraphicsWindow.Show()
+GraphicsWindow.Title = "Player 3.5"
+LDGraphicsWindow.Icon = Text.Append(Program.Directory,"\icon3.ico")
+LDCursors.Wait()
+
+GraphicsWindow.Top = 0
+GraphicsWindow.Left = 0
+GraphicsWindow.Height = Desktop.Height - 90
+GraphicsWindow.Width = Desktop.Width - 10
+GraphicsWindow.BrushColor = "Black"
+GraphicsWindow.PenColor = "Black"
+LDUtilities.ShowErrors = "False"
+LDUtilities.ShowFileErrors = "False"
+LDUtilities.ShowNoShapeErrors = "False"
+FCDialogs.T_PromptDialogTitle = GraphicsWindow.Title
+FCDialogs.T_ErrorDialogTitle = GraphicsWindow.Title
+FCDialogs.T_InformationDialogTitle = GraphicsWindow.Title
+LDGraphicsWindow.SetActive()
+
+itsz = GraphicsWindow.FontSize
+itfn = GraphicsWindow.FontName
+
+LDGraphicsWindow.PauseUpdates()
+toolbar = Shapes.AddRectangle(GraphicsWindow.Width,35)
+LDShapes.BrushColour(toolbar,LDColours.Gray)
+LDShapes.PenColour(toolbar,LDColours.Gray)
+toolbar2 = Shapes.AddRectangle(GraphicsWindow.Width,5)
+LDShapes.BrushColour(toolbar2,LDColours.Gray)
+LDShapes.PenColour(toolbar2,LDColours.Gray)
+Shapes.HideShape(toolbar2)
+back = Controls.AddButton("Back",0,0)
+next = Controls.AddButton("Next",0,0)
+ok = Controls.AddButton("Go",0,0)
+exit = Controls.AddButton("Exit",0,0)
+page = Controls.AddTextBox(0,0)
+LDControls.TextBoxReadOnly(page,"True")
+relaunch = Controls.AddButton("Relaunch",0,0)
+about = Controls.AddButton("About",0,0)
+txtpage = Shapes.AddText("Page:")
+locktoolbar = Controls.AddButton("X x¬",0,0)
+LDDialogs.ToolTip(locktoolbar,"Unlock Toolbar")
+Shapes.Move(txtpage,0,0)
+GraphicsWindow.BrushColor = "Green"
+lbar = LDControls.AddProgressBar("150","25","H")
+Controls.Move(lbar,0,0)
+GraphicsWindow.BrushColor = "Black"
+sizefomula = GraphicsWindow.Width/90
+Shapes.Move(toolbar,0,GraphicsWindow.Height - 35)
+Shapes.Move(toolbar2,0,GraphicsWindow.Height - 5)
+Controls.Move(locktoolbar,1*(sizefomula),GraphicsWindow.Height - 30)
+Controls.Move(back,7*(sizefomula),GraphicsWindow.Height - 30)
+Controls.Move(next,60*(sizefomula),GraphicsWindow.Height - 30)
+Controls.Move(ok,23*(sizefomula)+230,GraphicsWindow.Height - 30)
+Controls.Move(exit,80*(sizefomula),GraphicsWindow.Height - 30)
+Controls.Move(page,23*(sizefomula)+65, GraphicsWindow.Height - 30)
+Controls.Move(relaunch,67*(sizefomula),GraphicsWindow.Height - 30)
+Controls.Move(about,73*(sizefomula),GraphicsWindow.Height - 30)
+Shapes.Move(txtpage,23*(sizefomula),GraphicsWindow.Height-30)
+Controls.Move(lbar,47*(sizefomula),GraphicsWindow.Height - 30)
+LDShapes.ZIndex(back,2)
+LDShapes.ZIndex(next,2)
+LDShapes.ZIndex(ok,2)
+LDShapes.ZIndex(exit,2)
+LDShapes.ZIndex(page,2)
+LDShapes.ZIndex(relaunch,2)
+LDShapes.ZIndex(about,2)
+LDShapes.ZIndex(txtpage,2)
+LDShapes.ZIndex(lbar,2)
+LDShapes.ZIndex(locktoolbar,2)
+LDShapes.ZIndex(toolbar,1)
+LDShapes.ZIndex(toolbar2,1)
+mediarect = Shapes.AddRectangle(280,35)
+LDShapes.BrushColour(mediarect,LDColours.Gray)
+LDShapes.PenColour(mediarect,LDColours.Gray)
+ppbut = Controls.AddButton("Play",5,5)
+sbut = Controls.AddButton("Stop",60,5)
+txtbxtim = Controls.AddTextBox(115,5)
+Controls.SetSize(txtbxtim,50,25)
+shptim = Shapes.AddText("/00.0")
+Shapes.Move(shptim,175,10)
+abut = Controls.AddButton("Apply",225,5)
+mediatoolbar[1] = mediarect
+mediatoolbar[2] = ppbut
+mediatoolbar[3] = sbut
+mediatoolbar[4] = txtbxtim
+mediatoolbar[5] = shptim
+mediatoolbar[6] = abut
+For imediatoolbarc = 1 to 6
+  LDShapes.ZIndex(mediatoolbar[imediatoolbarc],1)
+  Shapes.HideShape(mediatoolbar[imediatoolbarc])
+endfor
+
+LDGraphicsWindow.ResumeUpdates()
+
+pagenum = 0
+lpagenum = 0
+object = ""
+debugconsole = "False"
+dosplash = "True"
+requestdata = "True"
+datatoloadpath = ""
+enablelegacy = "False"
+isfile = "True"
+debugdatatmp = ""
+pagetoload = 1
+othread = 0
+toolbarshown = "True"
+toolbarlocked = "True"
+toolbartimeout = 0
+lmy = 0
+lmx = 0
+disablenextandback = "False"
+mediaplayerstats = ""
+clkobj = ""
+clkobjmin = "False"
+clkobjmon = "False"
+clkobjisph = "False"
+clkobjismed = "False"
+toolbarvdelay = 150
+opagealive = 0
+clkobjismi = "False"
+medialoaded = "False"
+loadingpage = "False"
+unloadingpage = "False"
+opacityrunning = "False"
+purgeopacity = "False"
+ethread = 0
+medbarshown = "False"
+mebbarowner = ""
+mebbarownerm  = ""
+mebbarownerph = ""
+medtoolbaractive = "False"
+notsetupmedtbar = "True"
+cdebug = ""
+dobjarr = ""
+
+LDQueue.Enqueue("DEBUG","Player 3.5 Started On OS :" + ESLSystem.NTVersionString + " NT " + ESLSystem.NTMajorVersion + "." + ESLSystem.NTMinorVersion + "." + ESLSystem.NTBuildNumber)
+LDQueue.Enqueue("DEBUG","Player 3.5 Started Under: " + ESLSystem.Username)
+
+LDControls.TextBoxReadOnly(page,"True")
+Controls.SetTextBoxText(page,"Loading...")
+LDGraphicsWindow.State = 2
+If Program.ArgumentCount > 0 then
+  For i = 1 To Program.ArgumentCount
+    carg = Program.GetArgument(i)
+    cargdat = Text.GetSubTextToEnd(carg,Text.GetIndexOf(carg,"=")+1)
+    If Text.IsSubText(carg,"p=") Or Text.IsSubText(carg,"page=") Or Text.IsSubText(carg,"pagetoload=") Then
+      pagetoload = cargdat
+    ElseIf Text.IsSubText(carg,"f=") Or Text.IsSubText(carg,"folder=") Or Text.IsSubText(carg,"file=") Then
+      If LDFile.Exists(cargdat) then
+        datatoloadpath = cargdat
+        requestdata = "False"
+      EndIf
+    ElseIf Text.IsSubText(carg,"s=") Or Text.IsSubText(carg,"splash=") Then
+      dosplash = cargdat
+    ElseIf Text.IsSubText(carg,"nosplash") and Text.GetLength(carg) < 10 then
+      dosplash = "False"
+    ElseIf Text.IsSubText(carg,"l=") Or Text.IsSubText(carg,"legacy=")  Or Text.IsSubText(carg,"enablelegacy=") Then
+      enablelegacy = cargdat
+    ElseIf Text.IsSubText(carg,"t=") Or Text.IsSubText(carg,"locktoolbar=") Then
+      locktoolbar = text.ConvertToLowerCase(cargdat)
+      If locktoolbar <> "true" and locktoolbar <> "false" then
+        locktoolbar = "True"
+      EndIf
+    ElseIf Text.IsSubText(carg,"td=") Or Text.IsSubText(carg,"toolbardelay=") Then
+      toolbarvdelay = text.ConvertToLowerCase(cargdat)
+      If LDUtilities.IsNumber(toolbarvdelay) <> "True" then
+        toolbarvdelay = 150
+      EndIf
+    ElseIf Text.IsSubText(carg,"?") or Text.IsSubText(carg,"help") then
+      If Text.GetLength(carg) < 5 then
+        LDSound.Beep()
+        GraphicsWindow.ShowMessage("Command Line Info: "+ESLText.CRLF+"The data to load: -f=%file/folder%,-folder=%folder%,-file=%file%"+ESLText.CRLF+"Run as legacy: -l=%true/false%, -legacy=%true/false%, -enablelegacy=%true/false%"+ESLText.CRLF+"The page to start on: -p=%page%, -page=%page%, -pagetoload=%page%"+ESLText.CRLF+"Show/Hide the splash screen: -s=%true/false%, -splash=%true/false%, -nosplash"+ESLText.CRLF+"Lock the toolbar: -t=%true/false%, -locktoolbar=%true/false%"+ESLText.CRLF+"Toolbar Show Delay: -td=%number[time in milliseconds]%, -toolbardelay=%number[time in milliseconds]%"+ESLText.CRLF+"Display this command-line help message: -?, -help.",GraphicsWindow.Title)
+      EndIf
+    Else
+      If ldfile.Exists(carg) then
+        datatoloadpath = carg
+        requestdata = "False"
+      EndIf
+    EndIf
+  EndFor
+endif
+
+LDGraphicsWindow.State = 0
+LDGraphicsWindow.TopMost = "True"
+LDGraphicsWindow.SetActive()
+If dosplash then
+  splash()
+Else
+  resize()
+endif
+LDGraphicsWindow.TopMost = "False"
+LDGraphicsWindow.State = 2
+
+LDGraphicsWindow.SetActive()
+rerequest:
+If requestdata then
+  datatoloadpath = LDDialogs.OpenFile("Data Archive Files|*.ply;*.player;*.zip|All files (*.*)|*.*",LDFile.DocumentsFolder)
+  If datatoloadpath = "" then
+    FCDialogs.ShowMessageAsInformation("No data archive file selected - Program will now terminate.")
+    FCExtensions.AsyncStopAll()
+    Program.End()
+  endif
+  datatoloadcontents = text.ConvertToLowerCase(File.ReadContents(datatoloadpath))
+  If datatoloadcontents = "" then
+    FCDialogs.ShowMessageAsInformation("No data archive file selected - Program will now terminate.")
+    FCExtensions.AsyncStopAll()
+    Program.End()
+  endif
+  If Text.StartsWith(datatoloadcontents,"datafolder:") Or Text.StartsWith(datatoloadcontents,"data folder:") or Text.StartsWith(datatoloadcontents,"data_folder:")then
+    datatoloadpath = Text.GetSubTextToEnd(datatoloadcontents,Text.GetIndexOf(datatoloadcontents,":")+1)
+    If datatoloadpath = "" or ldfile.Exists(datatoloadpath) = "False" then
+      FCDialogs.ShowMessageAsInformation("Not a valid data folder - Program will now terminate.")
+      FCExtensions.AsyncStopAll()
+      Program.End()
+    endif
+    isfile = "False"
+  endif
+else
+  If datatoloadpath = "" then
+    requestdata = "True"
+    Goto rerequest
+  endif
+  datatoloadcontents = text.ConvertToLowerCase(File.ReadContents(datatoloadpath))
+  If datatoloadcontents = "" and file.GetFiles(datatoloadpath) = "FAILED" then
+    requestdata = "True"
+    Goto rerequest
+  ElseIf file.GetFiles(datatoloadpath) <> "FAILED" then
+    isfile = "False"
+  endif
+  If Text.StartsWith(datatoloadcontents,"datafolder:") Or Text.StartsWith(datatoloadcontents,"data folder:") or Text.StartsWith(datatoloadcontents,"data_folder:")then
+    datatoloadpath = Text.GetSubTextToEnd(datatoloadcontents,Text.GetIndexOf(datatoloadcontents,":")+1)
+    If datatoloadpath = "" or ldfile.Exists(datatoloadpath) = "False" then
+      requestdata = "True"
+      Goto rerequest
+    endif
+    isfile = "False"
+  endif
+endif
+
+LDGraphicsWindow.SetActive()
+If isfile then
+  Controls.SetTextBoxText(page,"Loading : Extracting...")
+  File.DeleteDirectory(Program.Directory+"\tmp")
+  if LDZip.UnZip(datatoloadpath,Program.Directory+"\tmp") <> "" then
+    File.DeleteDirectory(LDFile.TempFolder+"\player_tmp")
+    if LDZip.UnZip(datatoloadpath,LDFile.TempFolder+"\player_tmp") <> "" then
+      LDCursors.Arrow()
+      FCDialogs.ShowMessageAsError("Failed to extract the data file: "+datatoloadpath+" - Program will now terminate.")
+      FCExtensions.AsyncStopAll()
+      Program.End()
+    Else
+      datatoloadpath = LDFile.TempFolder+"\player_tmp"
+    endif
+  Else
+    datatoloadpath = Program.Directory+"\tmp"
+  endif
+endif
+Controls.SetTextBoxText(page,"Loading : Data Loading...")
+filestoload = File.GetFiles(datatoloadpath)
+If filestoload = "FAILED" then
+  LDCursors.Arrow()
+  FCDialogs.ShowMessageAsError("Failed to access the data folder: "+datatoloadpath+" - Program will now terminate.")
+  FCExtensions.AsyncStopAll()
+  Program.End()
+endif
+
+load()
+Controls.SetTextBoxText(page,"Loading : Pages Loading...")
+LDControls.MediaPlayerOpened = onmediaopened
+loadpages()
+While ethread < 1
+  ethread = FCExtensions.AsyncCall("execsub")
+  Program.Delay(10)
+endwhile
+While othread < 1
+  othread = FCExtensions.AsyncCall("Opacity")
+  Program.Delay(10)
+endwhile
+pagenum = pagetoload
+lpagenum = pagenum
+LDControls.TextBoxReadOnly(page,"False")
+Controls.SetTextBoxText(page,pagenum)
+Controls.ButtonClicked = buttonclicked
+LDGraphicsWindow.ExitOnClose = "False"
+LDGraphicsWindow.CancelClose = "True"
+LDGraphicsWindow.Closing = onexit
+'reg events
+GraphicsWindow.KeyDown = onkey
+LDControls.MediaPlayerEnded = onaudiocomp
+LDShapes.ShapeEvent = shapeevent
+'set last mouse stuff
+lmx = GraphicsWindow.MouseX
+lmy = GraphicsWindow.MouseY
+'load the page
+LDCursors.Arrow()
+loadpage()
+
+While "True"
+  If FCExtensions.AsyncIsRunning(othread) <> "True" Then
+    While othread < 1
+      othread = FCExtensions.AsyncCall("Opacity")
+      Program.Delay(10)
+    endwhile
+  EndIf
+  
+  If FCExtensions.AsyncIsRunning(ethread) <> "True" Then
+    While ethread < 1
+      ethread = FCExtensions.AsyncCall("execsub")
+      Program.Delay(10)
+    endwhile
+  EndIf
+  
+  If GraphicsWindow.MouseX <> lmx Or GraphicsWindow.MouseY <> lmy Then
+    onmousemove()
+  EndIf 
+  If GraphicsWindow.Width <> lwidth Then
+    resize()
+  EndIf
+  If GraphicsWindow.Height <> lheight Then
+    resize()
+  EndIf
+  lheight = GraphicsWindow.Height
+  lwidth = GraphicsWindow.Width
+  
+  If debugconsole Then
+    While LDQueue.GetCount("DEBUG") > 0
+      cdebug = LDQueue.Dequeue("DEBUG")
+      debugdatatmp = debugdatatmp + cdebug + ESLText.CRLF
+      TextWindow.WriteLine(cdebug)
+    EndWhile
+    LDGraphicsWindow.ExitButtonMode(TextWindow.Title,"Disabled")
+    If LDUtilities.KeyDown("Shift") and LDUtilities.KeyDown("F8") then
+      FCClipboard.SetText(debugdatatmp)
+    EndIf
+    If LDUtilities.KeyDown("Shift") <> "True" and LDUtilities.KeyDown("F8") then
+      debugdatatmp = ""
+      TextWindow.Clear()
+    EndIf
+  EndIf
+  
+  While LDQueue.GetCount("EXECC") > 0
+    cexec = LDQueue.Dequeue("EXECC")
+    If cexec = "unloadpage" then
+      LDQueue.Enqueue("DEBUG","Unloading Page:"+pagenum)
+      unloadpage()
+    endif
+    If cexec = "loadpage" then
+      LDQueue.Enqueue("DEBUG","Loading Page:"+pagenum)
+      loadpage()
+    endif
+    If cexec = "+page" Or cexec = "addpage" then
+      If ldutilities.IsNumber(pagenum) then
+        LDQueue.Enqueue("DEBUG","Unloading Page:"+pagenum)
+        unloadpage()
+        pagenum = pagenum + 1
+        Controls.SetTextBoxText(page,pagenum)
+        LDQueue.Enqueue("DEBUG","Loading Page:"+pagenum)
+        loadpage()
+      endif
+    endif
+    If cexec = "-page" Or cexec = "minuspage" then
+      If ldutilities.IsNumber(pagenum) then
+        If (pagenum-1) > 0 then
+          LDQueue.Enqueue("DEBUG","Unloading Page:"+pagenum)
+          unloadpage()
+          pagenum = pagenum - 1
+          Controls.SetTextBoxText(page,pagenum)
+          LDQueue.Enqueue("DEBUG","Loading Page:"+pagenum)
+          loadpage()
+        endif
+      endif
+    endif
+    If cexec = "setpage" then
+      LDQueue.Enqueue("DEBUG","Unloading Page:"+pagenum)
+      unloadpage()
+      pagenum = Controls.GetTextBoxText(page)
+      Controls.SetTextBoxText(page,pagenum)
+      LDQueue.Enqueue("DEBUG","Loading Page:"+pagenum)
+      loadpage()
+    endif
+    If text.StartsWith(cexec,"mplay:") then
+      cobjmedcexec = Text.GetSubTextToEnd(cexec,Text.GetIndexOf(cexec,":") + 1)
+      LDQueue.Enqueue("DEBUG","Media Object Play:" + cobjmedcexec)
+      Controls.ShowControl(cobjmedcexec)
+      mediaplayerstats[cobjmedcexec]["isplaying"] = "True"
+      mediaplayerstats[cobjmedcexec]["stopped"] = "False"
+      mediaplayerstats[cobjmedcexec]["paused"] = "False"
+      Shapes.HideShape(mediaplayerstats[cobjmedcexec]["ph"])
+      ldcontrols.MediaPlayerPlay(cobjmedcexec)
+      If mediaplayerstats[cobjmedcexec]["ismusic"] Then
+        Shapes.ShowShape(mediaplayerstats[cobjmedcexec]["musicimg"])
+      EndIf
+    endif
+    If text.StartsWith(cexec,"mpause:") then
+      cobjmedcexec = Text.GetSubTextToEnd(cexec,Text.GetIndexOf(cexec,":") + 1)
+      LDQueue.Enqueue("DEBUG","Media Object Pause:" + cobjmedcexec)
+      ldcontrols.MediaPlayerPause(cobjmedcexec)
+      Shapes.ShowShape(mediaplayerstats[cobjmedcexec]["ph"])
+      LDShapes.SetImage(mediaplayerstats[cobjmedcexec]["ph"],mediaplayerstats[cobjmedcexec]["pause"])
+      Controls.HideControl(cobjmedcexec)
+      mediaplayerstats[cobjmedcexec]["isplaying"] = "False"
+      mediaplayerstats[cobjmedcexec]["paused"] = "True"
+      LDShapes.SetImage(mediaplayerstats[cobjmedcexec]["ph"],mediaplayerstats[cobjmedcexec]["pause"])
+      If mediaplayerstats[cobjmedcexec]["ismusic"] Then
+        Shapes.HideShape(mediaplayerstats[cobjmedcexec]["musicimg"])
+      EndIf
+    endif
+    If text.StartsWith(cexec,"mstop:") then
+      cobjmedcexec = Text.GetSubTextToEnd(cexec,Text.GetIndexOf(cexec,":") + 1)
+      LDQueue.Enqueue("DEBUG","Media Object Stop:" + cobjmedcexec)
+      ldcontrols.MediaPlayerStop(cobjmedcexec)
+      Shapes.ShowShape(mediaplayerstats[cobjmedcexec]["ph"])
+      LDShapes.SetImage(mediaplayerstats[cobjmedcexec]["ph"],mediaplayerstats[cobjmedcexec]["stop"])
+      Controls.HideControl(cobjmedcexec)
+      mediaplayerstats[cobjmedcexec]["isplaying"] = "False"
+      mediaplayerstats[cobjmedcexec]["stopped"] = "True"
+      LDShapes.SetImage(mediaplayerstats[cobjmedcexec]["ph"],mediaplayerstats[cobjmedcexec]["play"])
+      If mediaplayerstats[cobjmedcexec]["ismusic"] Then
+        Shapes.HideShape(mediaplayerstats[cobjmedcexec]["musicimg"])
+      EndIf
+    endif
+  endwhile
+  
+  If toolbartimeout < 1 and LDFocus.IsFocus(page) <> "True" Then
+    toolbarhide()
+    Mouse.HideCursor()
+  EndIf
+  If toolbartimeout > 0 And toolbarlocked <> "True" Then
+    toolbartimeout = toolbartimeout - 1
+  EndIf
+  
+  If LDUtilities.IsNumber(Controls.GetTextBoxText(page)) Then
+    If Controls.GetTextBoxText(page) > 0 then
+      disablenextandback = "False"
+      If toolbarshown = "True" then
+        Controls.showControl(next)
+        Controls.ShowControl(back)
+      EndIf
+    Else
+      disablenextandback = "True"
+      If toolbarshown = "True" then
+        Controls.HideControl(next)
+        Controls.HideControl(back)
+      EndIf
+    EndIf
+  Else
+    disablenextandback = "True"
+    If toolbarshown = "True" then
+      Controls.HideControl(next)
+      Controls.HideControl(back)
+    EndIf
+  EndIf
+  
+  lmx = graphicswindow.MouseX
+  lmy = GraphicsWindow.MouseY   
+  
+  If medtoolbaractive Then
+    If FCControls.IsMoveOver(mediarect) or FCControls.IsMoveOver(ppbut) or FCControls.IsMoveOver(sbut) or FCControls.IsMoveOver(abut) or FCControls.IsMoveOver(txtbxtim) or FCControls.IsMoveOver(shptim) Or FCControls.IsMoveOver(mebbarowner) Or FCControls.IsMoveOver(mebbarownerm) Or FCControls.IsMoveOver(mebbarownerph) then
+      medtoolbaractive = "True"
+    Else
+      medtoolbaractive = "False"
+      LDQueue.Enqueue("SHAPE_EVENT","1="+mebbarowner+";2=MouseLeave;")
+    EndIf
+  EndIf
+  
+  If clkobjmon Then
+    While LDQueue.GetCount("SHAPE_EVENT") > 0
+      cmediaobj = LDQueue.Dequeue("SHAPE_EVENT")
+      If cmediaobj[2] = "MouseUp" Then
+        If cmediaobj[1] = clkobj then
+          If clkobjisph and LDUtilities.KeyDown("Shift") <> "True" then
+            LDQueue.Enqueue("EXEC","mplay:"+clkobj2)
+          ElseIf clkobjisph and LDUtilities.KeyDown("Shift") then
+            LDQueue.Enqueue("EXEC","mstop:"+clkobj2)
+          ElseIf clkobjismed and LDUtilities.KeyDown("Shift") <> "True" then
+            LDQueue.Enqueue("EXEC","mpause:"+cmediaobj[1])
+          ElseIf clkobjismed and LDUtilities.KeyDown("Shift") then
+            LDQueue.Enqueue("EXEC","mstop:"+cmediaobj[1])
+          ElseIf clkobjismi and LDUtilities.KeyDown("Shift") <> "True" then
+            For i456 = 1 to LDQueue.GetCount("MEDIA"+pagenum) step 1
+              cmedobjfmi = LDQueue.Dequeue("MEDIA"+pagenum)
+              LDQueue.Enqueue("MEDIA"+pagenum,cmedobjfmi)
+              If mediaplayerstats[cmedobjfmi]["musicimg"] = cmediaobj[1] then
+                LDQueue.Enqueue("EXEC","mpause:"+cmedobjfmi)
+                Goto exitloop101
+              endif
+            endfor
+            exitloop101:
+          ElseIf clkobjismi and LDUtilities.KeyDown("Shift") then
+            For i456 = 1 to LDQueue.GetCount("MEDIA"+pagenum) step 1
+              cmedobjfmi = LDQueue.Dequeue("MEDIA"+pagenum)
+              LDQueue.Enqueue("MEDIA"+pagenum,cmedobjfmi)
+              If mediaplayerstats[cmedobjfmi]["musicimg"] = cmediaobj[1] then
+                LDQueue.Enqueue("EXEC","mstop:"+cmedobjfmi)
+                Goto exitloop102
+              endif
+            endfor
+            exitloop102:
+          EndIf
+          clkobj = ""
+          clkobjmin = "False"
+          clkobjmon = "False"
+          clkobjismed = "False"
+          clkobjisph = "False"
+          clkobjismi = "False"
+          clkobj2 = ""
+        EndIf
+      EndIf
+      If cmediaobj[2] = "MouseLeave" Then
+        If cmediaobj[1] = mebbarowner Or cmediaobj[1] = mediaplayerstats[mebbarowner]["musicimg"] Or cmediaobj[1] = mediaplayerstats[mebbarowner]["ph"] then
+          'TextWindow.WriteLine(medbarshown + " : " + mebbarowner + " : " + medtoolbaractive)
+          If FCControls.IsMoveOver(mediarect) or FCControls.IsMoveOver(ppbut) or FCControls.IsMoveOver(sbut) or FCControls.IsMoveOver(abut) or FCControls.IsMoveOver(txtbxtim) or FCControls.IsMoveOver(shptim) Or FCControls.IsMoveOver(mebbarowner) Or FCControls.IsMoveOver(mebbarownerm) Or FCControls.IsMoveOver(mebbarownerph) then
+            medtoolbaractive = "True"
+          Else
+            mebbarowner = ""
+            mebbarownerm = ""
+            mebbarownerph = ""
+            For imediatoolbarc = 1 to 6 step 1
+              Shapes.HideShape(mediatoolbar[imediatoolbarc])
+            endfor
+            LDQueue.Enqueue("DEBUG","Media ToolBar Hidden")
+            medbarshown = "False"
+          endif
+        EndIf
+        If cmediaobj[1] = clkobj then
+          clkobjmin = "False"
+        EndIf
+      EndIf
+      If cmediaobj[2] = "MouseEnter" Then
+        If medbarshown <> "True" then
+          For i456 = 1 to LDQueue.GetCount("MEDIA"+pagenum) step 1
+            cmedobjfmi = LDQueue.Dequeue("MEDIA"+pagenum)
+            LDQueue.Enqueue("MEDIA"+pagenum,cmedobjfmi)
+            If cmediaobj[1] = mediaplayerstats[cmedobjfmi]["object"] then
+              If mediaplayerstats[cmedobjfmi]["controls"] then
+                mebbarowner = cmedobjfmi
+                mebbarownerph = mediaplayerstats[cmedobjfmi]["ph"]
+                For imediatoolbarc = 1 to 6 step 1
+                  Shapes.ShowShape(mediatoolbar[imediatoolbarc])
+                endfor
+                Shapes.Move(mediarect,LDShapes.GetLeft(mediaplayerstats[cmedobjfmi]["object"]),LDShapes.GetTop(mediaplayerstats[cmedobjfmi]["object"]) + LDShapes.Height(mediaplayerstats[cmedobjfmi]["object"]) - 35)
+                Shapes.Move(ppbut,LDShapes.GetLeft(mediarect) + 5, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(sbut,LDShapes.GetLeft(mediarect) + 60, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(txtbxtim,LDShapes.GetLeft(mediarect) + 115, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(shptim,LDShapes.GetLeft(mediarect) + 175, LDShapes.GetTop(mediarect) + 10)
+                Shapes.Move(abut,LDShapes.GetLeft(mediarect) + 225, LDShapes.GetTop(mediarect) + 5)
+                medbarshown = "True"
+                notsetupmedtbar = "True"
+                LDQueue.Enqueue("DEBUG","Media ToolBar Shown")
+              endif
+            ElseIf cmediaobj[1] = mediaplayerstats[cmedobjfmi]["musicimg"] then
+              If mediaplayerstats[cmedobjfmi]["controls"] then
+                mebbarowner = cmedobjfmi
+                mebbarownerm = cmediaobj[1]
+                mebbarownerph = mediaplayerstats[cmedobjfmi]["ph"]
+                For imediatoolbarc = 1 to 6 step 1
+                  Shapes.ShowShape(mediatoolbar[imediatoolbarc])
+                endfor
+                Shapes.Move(mediarect,LDShapes.GetLeft(mediaplayerstats[cmedobjfmi]["musicimg"]),LDShapes.GetTop(mediaplayerstats[cmedobjfmi]["musicimg"]) + LDShapes.Height(mediaplayerstats[cmedobjfmi]["musicimg"]) - 35)
+                Shapes.Move(ppbut,LDShapes.GetLeft(mediarect) + 5, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(sbut,LDShapes.GetLeft(mediarect) + 60, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(txtbxtim,LDShapes.GetLeft(mediarect) + 115, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(shptim,LDShapes.GetLeft(mediarect) + 175, LDShapes.GetTop(mediarect) + 10)
+                Shapes.Move(abut,LDShapes.GetLeft(mediarect) + 225, LDShapes.GetTop(mediarect) + 5)
+                medbarshown = "True"
+                notsetupmedtbar = "True"
+                LDQueue.Enqueue("DEBUG","Media ToolBar Shown")
+              endif            
+            ElseIf cmediaobj[1] = mediaplayerstats[cmedobjfmi]["ph"] then
+              If mediaplayerstats[cmedobjfmi]["controls"] then
+                mebbarowner = cmedobjfmi
+                If mediaplayerstats[cmedobjfmi]["ismusic"] then
+                  mebbarownerm = mediaplayerstats[cmedobjfmi]["musicimg"]
+                EndIf 
+                mebbarownerph = mediaplayerstats[cmedobjfmi]["ph"]
+                For imediatoolbarc = 1 to 6 step 1
+                  Shapes.ShowShape(mediatoolbar[imediatoolbarc])
+                endfor
+                Shapes.Move(mediarect,LDShapes.GetLeft(mediaplayerstats[cmedobjfmi]["ph"]),LDShapes.GetTop(mediaplayerstats[cmedobjfmi]["ph"]) + LDShapes.Height(mediaplayerstats[cmedobjfmi]["ph"]) - 35)
+                Shapes.Move(ppbut,LDShapes.GetLeft(mediarect) + 5, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(sbut,LDShapes.GetLeft(mediarect) + 60, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(txtbxtim,LDShapes.GetLeft(mediarect) + 115, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(shptim,LDShapes.GetLeft(mediarect) + 175, LDShapes.GetTop(mediarect) + 10)
+                Shapes.Move(abut,LDShapes.GetLeft(mediarect) + 225, LDShapes.GetTop(mediarect) + 5)
+                medbarshown = "True"
+                notsetupmedtbar = "True"
+                LDQueue.Enqueue("DEBUG","Media ToolBar Shown")
+              endif            
+            endif
+          endfor
+        Else
+          medtoolbaractive = "False"
+        EndIf
+        If cmediaobj[1] = clkobj then
+          clkobjmin = "True"
+        EndIf
+      EndIf
+      If clkobjmin <> "True" And (Mouse.IsLeftButtonDown Or Mouse.IsRightButtonDown) Then
+        clkobj = ""
+        clkobjmin = "False"
+        clkobjmon = "False"
+        clkobjismed = "False"
+        clkobjisph = "False"
+        clkobjismi = "False"
+        clkobj2 = ""
+      EndIf
+    EndWhile
+  Else
+    While LDQueue.GetCount("SHAPE_EVENT") > 0
+      cmediaobj = LDQueue.Dequeue("SHAPE_EVENT")
+      If cmediaobj[2] = "MouseDown" Then
+        For i300 = 1 to LDQueue.GetCount("MEDIA"+pagenum)
+          cmediaobj2 = LDQueue.Dequeue("MEDIA"+pagenum)
+          LDQueue.Enqueue("MEDIA"+pagenum,cmediaobj2)
+          If cmediaobj[1] = mediaplayerstats[cmediaobj2]["object"] Then
+            clkobj = cmediaobj[1]
+            clkobjmin = "True"
+            clkobjmon = "True"
+            clkobjismed = "True"
+            clkobjisph = "False"
+            clkobjismi = "False"
+            Goto endchk
+          EndIf
+          If cmediaobj[1] = mediaplayerstats[cmediaobj2]["musicimg"] Then
+            clkobj = cmediaobj[1]
+            clkobjmin = "True"
+            clkobjmon = "True"
+            clkobjismed = "False"
+            clkobjisph = "False"
+            clkobjismi = "True"
+            Goto endchk
+          EndIf
+          If cmediaobj[1] = mediaplayerstats[cmediaobj2]["ph"] then
+            clkobj = cmediaobj[1]
+            clkobjmin = "True"
+            clkobjmon = "True"
+            clkobjisph = "True"
+            clkobjismed = "False"
+            clkobjismi = "False"
+            clkobj2 = cmediaobj2
+            Goto endchk
+          endif
+        endfor
+      EndIf
+      endchk:
+      If cmediaobj[2] = "MouseLeave" Then
+        If cmediaobj[1] = mebbarowner Or cmediaobj[1] = mediaplayerstats[mebbarowner]["musicimg"] Or cmediaobj[1] = mediaplayerstats[mebbarowner]["ph"] then
+          'TextWindow.WriteLine(medbarshown + " : " + mebbarowner + " : " + medtoolbaractive)
+          If FCControls.IsMoveOver(mediarect) or FCControls.IsMoveOver(ppbut) or FCControls.IsMoveOver(sbut) or FCControls.IsMoveOver(abut) or FCControls.IsMoveOver(txtbxtim) or FCControls.IsMoveOver(shptim) Or FCControls.IsMoveOver(mebbarowner) Or FCControls.IsMoveOver(mebbarownerm) Or FCControls.IsMoveOver(mebbarownerph) then
+            medtoolbaractive = "True"
+          Else
+            mebbarowner = ""
+            mebbarownerm = ""
+            mebbarownerph = ""
+            For imediatoolbarc = 1 to 6 step 1
+              Shapes.HideShape(mediatoolbar[imediatoolbarc])
+            endfor
+            LDQueue.Enqueue("DEBUG","Media ToolBar Hidden")
+            medbarshown = "False"
+          endif
+        EndIf
+      EndIf
+      If cmediaobj[2] = "MouseEnter" Then
+        If medbarshown <> "True" then
+          For i456 = 1 to LDQueue.GetCount("MEDIA"+pagenum) step 1
+            cmedobjfmi = LDQueue.Dequeue("MEDIA"+pagenum)
+            LDQueue.Enqueue("MEDIA"+pagenum,cmedobjfmi)
+            If cmediaobj[1] = mediaplayerstats[cmedobjfmi]["object"] then
+              If mediaplayerstats[cmedobjfmi]["controls"] then
+                mebbarowner = cmedobjfmi
+                mebbarownerph = mediaplayerstats[cmedobjfmi]["ph"]
+                For imediatoolbarc = 1 to 6 step 1
+                  Shapes.ShowShape(mediatoolbar[imediatoolbarc])
+                endfor
+                Shapes.Move(mediarect,LDShapes.GetLeft(mediaplayerstats[cmedobjfmi]["object"]),LDShapes.GetTop(mediaplayerstats[cmedobjfmi]["object"]) + LDShapes.Height(mediaplayerstats[cmedobjfmi]["object"]) - 35)
+                Shapes.Move(ppbut,LDShapes.GetLeft(mediarect) + 5, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(sbut,LDShapes.GetLeft(mediarect) + 60, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(txtbxtim,LDShapes.GetLeft(mediarect) + 115, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(shptim,LDShapes.GetLeft(mediarect) + 175, LDShapes.GetTop(mediarect) + 10)
+                Shapes.Move(abut,LDShapes.GetLeft(mediarect) + 225, LDShapes.GetTop(mediarect) + 5)
+                medbarshown = "True"
+                notsetupmedtbar = "True"
+                LDQueue.Enqueue("DEBUG","Media ToolBar Shown")
+              endif
+            ElseIf cmediaobj[1] = mediaplayerstats[cmedobjfmi]["musicimg"] then
+              If mediaplayerstats[cmedobjfmi]["controls"] then
+                mebbarowner = cmedobjfmi
+                mebbarownerm = cmediaobj[1]
+                mebbarownerph = mediaplayerstats[cmedobjfmi]["ph"]
+                For imediatoolbarc = 1 to 6 step 1
+                  Shapes.ShowShape(mediatoolbar[imediatoolbarc])
+                endfor
+                Shapes.Move(mediarect,LDShapes.GetLeft(mediaplayerstats[cmedobjfmi]["musicimg"]),LDShapes.GetTop(mediaplayerstats[cmedobjfmi]["musicimg"]) + LDShapes.Height(mediaplayerstats[cmedobjfmi]["musicimg"]) - 35)
+                Shapes.Move(ppbut,LDShapes.GetLeft(mediarect) + 5, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(sbut,LDShapes.GetLeft(mediarect) + 60, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(txtbxtim,LDShapes.GetLeft(mediarect) + 115, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(shptim,LDShapes.GetLeft(mediarect) + 175, LDShapes.GetTop(mediarect) + 10)
+                Shapes.Move(abut,LDShapes.GetLeft(mediarect) + 225, LDShapes.GetTop(mediarect) + 5)
+                medbarshown = "True"
+                notsetupmedtbar = "True"
+                LDQueue.Enqueue("DEBUG","Media ToolBar Shown")
+              endif            
+            ElseIf cmediaobj[1] = mediaplayerstats[cmedobjfmi]["ph"] then
+              If mediaplayerstats[cmedobjfmi]["controls"] then
+                mebbarowner = cmedobjfmi
+                If mediaplayerstats[cmedobjfmi]["ismusic"] then
+                  mebbarownerm = mediaplayerstats[cmedobjfmi]["musicimg"]
+                EndIf 
+                mebbarownerph = mediaplayerstats[cmedobjfmi]["ph"]
+                For imediatoolbarc = 1 to 6 step 1
+                  Shapes.ShowShape(mediatoolbar[imediatoolbarc])
+                endfor
+                Shapes.Move(mediarect,LDShapes.GetLeft(mediaplayerstats[cmedobjfmi]["ph"]),LDShapes.GetTop(mediaplayerstats[cmedobjfmi]["ph"]) + LDShapes.Height(mediaplayerstats[cmedobjfmi]["ph"]) - 35)
+                Shapes.Move(ppbut,LDShapes.GetLeft(mediarect) + 5, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(sbut,LDShapes.GetLeft(mediarect) + 60, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(txtbxtim,LDShapes.GetLeft(mediarect) + 115, LDShapes.GetTop(mediarect) + 5)
+                Shapes.Move(shptim,LDShapes.GetLeft(mediarect) + 175, LDShapes.GetTop(mediarect) + 10)
+                Shapes.Move(abut,LDShapes.GetLeft(mediarect) + 225, LDShapes.GetTop(mediarect) + 5)
+                medbarshown = "True"
+                notsetupmedtbar = "True"
+                LDQueue.Enqueue("DEBUG","Media ToolBar Shown")
+              endif            
+            endif
+          endfor
+        Else
+          medtoolbaractive = "False"
+        EndIf
+      EndIf
+    endwhile
+    
+    While LDQueue.GetCount("MEDIAC") > 0
+      ctmpaudioreg3 = LDQueue.Dequeue("MEDIAC")
+      If LDQueue.GetCount("MEDIAL"+pagenum) > 0 Then
+        For i100 = 1 To LDQueue.GetCount("MEDIAL"+pagenum) Step 1
+          ctmpaudioreg2 = LDQueue.Dequeue("MEDIAL"+pagenum)
+          If ctmpaudioreg2 = ctmpaudioreg3 and mediaplayerstats[ctmpaudioreg3]["stopped"] <> "True" Then
+            ldcontrols.MediaPlayerStop(ctmpaudioreg3)
+            Program.Delay(10)
+            ldcontrols.MediaPlayerPlay(ctmpaudioreg3)
+          ElseIf mediaplayerstats[ctmpaudioreg3]["stopped"] <> "True" Then
+            ldcontrols.MediaPlayerStop(ctmpaudioreg3)
+            Shapes.ShowShape(mediaplayerstats[ctmpaudioreg3]["ph"])
+            LDShapes.SetImage(mediaplayerstats[ctmpaudioreg3]["ph"],mediaplayerstats[ctmpaudioreg3]["stop"])
+            Controls.HideControl(ctmpaudioreg3)
+            If mediaplayerstats[ctmpaudioreg]["ismusic"] Then
+              Shapes.hideShape(mediaplayerstats[ctmpaudioreg]["musicimg"])
+            EndIf
+            mediaplayerstats[ctmpaudioreg3]["isplaying"] = "False"
+            mediaplayerstats[ctmpaudioreg3]["stopped"] = "True"
+            LDShapes.SetImage(mediaplayerstats[ctmpaudioreg3]["ph"],mediaplayerstats[ctmpaudioreg3]["play"])
+          EndIf
+          LDQueue.Enqueue("MEDIAL"+pagenum,ctmpaudioreg2)
+        EndFor
+      ElseIf mediaplayerstats[ctmpaudioreg3]["stopped"] <> "True" Then
+        ldcontrols.MediaPlayerStop(ctmpaudioreg3)
+        Shapes.ShowShape(mediaplayerstats[ctmpaudioreg3]["ph"])
+        LDShapes.SetImage(mediaplayerstats[ctmpaudioreg3]["ph"],mediaplayerstats[ctmpaudioreg3]["stop"])
+        Controls.HideControl(ctmpaudioreg3)
+        If mediaplayerstats[ctmpaudioreg]["ismusic"] Then
+          Shapes.HideShape(mediaplayerstats[ctmpaudioreg]["musicimg"])
+        EndIf
+        mediaplayerstats[ctmpaudioreg3]["isplaying"] = "False"
+        mediaplayerstats[ctmpaudioreg3]["stopped"] = "True"
+        LDShapes.SetImage(mediaplayerstats[ctmpaudioreg3]["ph"],mediaplayerstats[ctmpaudioreg3]["play"])
+      EndIf
+      Program.Delay(10)
+    EndWhile
+  EndIf
+  
+  If medbarshown and mebbarowner <> "" Then 
+    If mediaplayerstats[mebbarowner]["isplaying"] then
+      LDControls.TextBoxReadOnly(txtbxtim,"True")
+      Controls.SetTextBoxText(txtbxtim,0.1*Math.Round(LDControls.MediaPlayerPosition(mediaplayerstats[mebbarowner]["object"])/100))
+      Shapes.SetText(shptim,text.append(" / ",0.1*Math.Round(LDControls.MediaPlayerPlayTime(mediaplayerstats[mebbarowner]["object"])/100)))
+      Controls.SetButtonCaption(ppbut,"Pause")
+      notsetupmedtbar = "True"
+    ElseIf notsetupmedtbar then
+      LDControls.TextBoxReadOnly(txtbxtim,"False")
+      Controls.SetTextBoxText(txtbxtim,0.1*Math.Round(LDControls.MediaPlayerPosition(mediaplayerstats[mebbarowner]["object"])/100))
+      Shapes.SetText(shptim,text.append(" / ",0.1*Math.Round(LDControls.MediaPlayerPlayTime(mediaplayerstats[mebbarowner]["object"])/100)))
+      Controls.SetButtonCaption(ppbut,"Play")
+      notsetupmedtbar = "False"
+    EndIf
+  EndIf
+  
+  Program.Delay(10)
+endwhile
+
+'inter page call
+Sub execsub
+  While "True"
+    While LDQueue.GetCount("EXEC") > 0
+      cexec2 = LDQueue.Dequeue("EXEC")
+      If cexec2 = "unloadpage" then
+        If unloadingpage then
+          purgeopacity = "True"
+        Else
+          unloadingpage = "True"
+          LDQueue.Enqueue("EXECC",cexec2)
+        EndIf
+      endif
+      If cexec2 = "loadpage" then
+        If loadingpage then
+          purgeopacity = "True"
+        Else
+          loadingpage = "True"
+          LDQueue.Enqueue("EXECC",cexec2)
+        EndIf
+      endif
+      If cexec2 = "+page" Or cexec2 = "addpage" then
+        If unloadingpage or loadingpage then
+          purgeopacity = "True"
+        Else
+          unloadingpage = "True"
+          loadingpage = "True"
+          LDQueue.Enqueue("EXECC",cexec2)
+        EndIf
+      endif
+      If cexec2 = "-page" Or cexec2 = "minuspage" then
+        If unloadingpage or loadingpage then
+          purgeopacity = "True"
+        Else
+          If (pagenum-1) > 0 then
+            unloadingpage = "True"
+            loadingpage = "True"
+            LDQueue.Enqueue("EXECC",cexec2)
+          EndIf
+        EndIf
+      endif
+      If cexec2 = "setpage" then
+        If unloadingpage or loadingpage then
+          purgeopacity = "True"
+        Else
+          unloadingpage = "True"
+          loadingpage = "True"
+          LDQueue.Enqueue("EXECC",cexec2)
+        EndIf
+      endif
+      If text.StartsWith(cexec2,"mplay:") Then
+        LDQueue.Enqueue("EXECC",cexec2)
+      EndIf
+      If text.StartsWith(cexec2,"mpause:") Then
+        LDQueue.Enqueue("EXECC",cexec2)
+      EndIf
+      If text.StartsWith(cexec2,"mstop:") Then
+        LDQueue.Enqueue("EXECC",cexec2)
+      EndIf
+    endwhile
+    Program.Delay(10)
+  EndWhile
+EndSub
+
+Sub onkey
+  If LDUtilities.KeyDown("F1") Then
+    chk2 = LDProcess.Start(Program.Directory+"\player_web.exe","")
+    If chk2 < 1 then
+      FCDialogs.ShowMessageAsError("Could not start player web launcher!")
+    EndIf
+  EndIf
+  If LDUtilities.KeyDown("F2") and LDUtilities.KeyDown("Shift") <> "True" Then
+    cimage = LDGraphicsWindow.Capture("","False")
+    cimagep = LDDialogs.SaveFile("png",LDFile.DocumentsFolder)
+    If cimagep <> "" then
+      LDImage.SaveAs(cimage,cimagep)
+    EndIf
+  EndIf
+  
+  If LDUtilities.KeyDown("F2") and LDUtilities.KeyDown("Shift") = "True" Then
+    czipp = LDDialogs.SaveFile("Data Archive Files|*.ply;*.player;*.zip|All files (*.*)|*.*",LDFile.DocumentsFolder)
+    If czipp <> "" then
+      LDZip.Zip(czipp,filestoload)
+    EndIf
+  EndIf
+  
+  If LDUtilities.KeyDown("F5")  and LDUtilities.KeyDown("Shift") <> "True" Then
+    LDQueue.Enqueue("EXEC","unloadpage")
+    restart()
+    FCExtensions.AsyncStopAll()
+    Program.Delay(500)
+    Program.End()
+  EndIf
+  If LDUtilities.KeyDown("F5")  and LDUtilities.KeyDown("Shift") = "True"Then
+    restart()
+    FCExtensions.AsyncStopAll()
+    Program.Delay(500)
+    Program.End()
+  EndIf
+  If LDUtilities.KeyDown("F4") and LDUtilities.KeyDown("Shift") <> "True" and FCKeyboard.IsAltPressed <> "True" Then
+    LDSound.Beep()
+    If enablelegacy Then
+      chk3 = LDDialogs.Confirm("Do you want to switch to normal mode?",GraphicsWindow.Title)
+      If chk3 = "Yes" Then
+        enablelegacy = "False"
+      EndIf
+    Else
+      chk3 = LDDialogs.Confirm("Do you want to switch to legacy mode?",GraphicsWindow.Title)
+      If chk3 = "Yes" Then
+        enablelegacy = "True"
+      EndIf
+    EndIf
+  EndIf
+  If LDUtilities.KeyDown("F4") and LDUtilities.KeyDown("Shift") = "True" and FCKeyboard.IsAltPressed <> "True"Then
+    splash()
+  EndIf
+  If LDUtilities.KeyDown("F3") and LDUtilities.KeyDown("Shift") <> "True" Then
+    If debugconsole Then
+      TextWindow.Clear()
+      debugconsole = "False"
+      TextWindow.Hide()
+    Else
+      TextWindow.Show()
+      TextWindow.Title = GraphicsWindow.Title+" : Debug Console"
+      debugconsole = "True"
+    EndIf
+  EndIf
+  If LDUtilities.KeyDown("F3") and LDUtilities.KeyDown("Shift") = "True" and FCKeyboard.IsAltPressed <> "True" Then
+    purgeopacity = "True"
+  EndIf
+  If LDUtilities.KeyDown("F3") and LDUtilities.KeyDown("Shift") = "True" and FCKeyboard.IsAltPressed = "True" Then
+    For i99899782 = 1 To Array.GetItemCount(object[lpagenum])
+      Shapes.SetOpacity(object[lpagenum][i99899782],0)
+    EndFor
+    For i99899782 = 1 To Array.GetItemCount(object[pagenum])
+      If unloadingpage <> "True" Then
+        Shapes.SetOpacity(object[pagenum][i99899782],100)
+      EndIf
+    EndFor
+  EndIf
+  If LDUtilities.KeyDown("Escape") Then
+    onexit()
+  EndIf
+  If LDUtilities.KeyDown("Right") and LDFocus.GetFocus() <> page Then
+    LDQueue.Enqueue("EXEC","addpage")
+  EndIf
+  If LDUtilities.KeyDown("Left") and LDFocus.GetFocus() <> page Then
+    LDQueue.Enqueue("EXEC","minuspage")
+  EndIf
+  If LDUtilities.KeyDown("F7") Then
+    LDQueue.Enqueue("EXEC","addpage")
+  EndIf
+  If LDUtilities.KeyDown("F6") Then
+    LDQueue.Enqueue("EXEC","minuspage")
+  EndIf
+  If LDUtilities.KeyDown("Return") and LDFocus.GetFocus() = page Then
+    LDQueue.Enqueue("EXEC","setpage")
+    LDFocus.SetFocus(ok)
+  EndIf
+  If LDUtilities.KeyDown("F9")  and LDUtilities.KeyDown("Shift") <> "True" Then
+    LDQueue.Enqueue("EXEC","unloadpage")
+    restartselect()
+    FCExtensions.AsyncStopAll()
+    Program.Delay(500)
+    Program.End()
+  EndIf
+  If LDUtilities.KeyDown("F9")  and LDUtilities.KeyDown("Shift") = "True" Then
+    restartselect()
+    FCExtensions.AsyncStopAll()
+    Program.Delay(500)
+    Program.End()
+  EndIf
+EndSub
+
+Sub loadpage
+  loadingpage = "True"
+  LDControls.ProgressBarValue(lbar,50)
+  LDCursors.Starting()
+  opagealive = 0
+  If Array.IsArray(txt[pagenum]) Then
+    ttlp = Array.GetItemCount(txt[pagenum])
+    aper = 1/(ttlp/50)
+    per = 50
+    For i = 1 To Array.GetItemCount(txt[pagenum])
+      If txt[pagenum]["line"+i]["type"]["1"] = "img" or txt[pagenum]["line"+i]["type"]["1"] = "image" or txt[pagenum]["line"+i]["type"]["1"] = "static_image"Then
+        Shapes.ShowShape(object[pagenum][i])
+        animate()
+      EndIf
+      If txt[pagenum]["line"+i]["type"]["1"] = "aig"  or txt[pagenum]["line"+i]["type"]["1"] = "animated_image" Then
+        Shapes.ShowShape(object[pagenum][i])
+        animate()
+      EndIf
+      'legacy stuff checker
+      If enablelegacy Then
+        'legacy
+        If txt[pagenum]["line"+i]["type"]["1"] = "tit" Or txt[pagenum]["line"+i]["type"]["1"] = "title"  Then
+          Shapes.ShowShape(object[pagenum][i])
+          animate()
+        EndIf
+        'legacy
+        If txt[pagenum]["line"+i]["type"]["1"] = "txt" Or txt[pagenum]["line"+i]["type"]["1"] = "text"Then
+          Shapes.ShowShape(object[pagenum][i])
+          animate()
+        EndIf
+      Else
+        'legacy replacement
+        If txt[pagenum]["line"+i]["type"]["1"] = "txt" Or txt[pagenum]["line"+i]["type"]["1"] = "text" Then
+          Shapes.ShowShape(object[pagenum][i])
+          animate()
+        EndIf
+        If txt[pagenum]["line"+i]["type"]["1"] = "tit" Or txt[pagenum]["line"+i]["type"]["1"] = "title"  Then
+          GraphicsWindow.Title = "Player 3.5 - " + txt[pagenum]["line"+i]["data"]["1"]
+        EndIf
+      EndIf
+      If txt[pagenum]["line"+i]["type"]["1"] = "run" Then
+        If enablelegacy then
+          object[pagenum][i] = LDProcess.Start(txt[pagenum]["line"+i]["run"]["1"],txt[pagenum]["line"+i]["run"]["2"])
+          If object[pagenum][i] < 1 then
+            FCDialogs.ShowMessageAsError("Could not start the object addressed action!")
+          Else
+            If text.ConvertToLowerCase(txt[pagenum]["line"+i]["run"]["3"]) = "true" then
+            Else
+              eslcurrentprocess.Restart("-f="+datatoloadpath+" -p="+txt[pagenum]["line"+i]["run"]["3"]+" nosplash -l="+enablelegacy)
+              unloadpage()
+              FCExtensions.AsyncStopAll()
+              Program.Delay(500)
+              Program.End()
+            EndIf
+          EndIf
+        Else
+          object[pagenum][i] = LDProcess.Start(txt[pagenum]["line"+i]["data"]["1"],txt[pagenum]["line"+i]["data"]["2"])
+          If object[pagenum][i] < 1 then
+            FCDialogs.ShowMessageAsError("Could not start the object addressed action!")
+          Else
+            If text.ConvertToLowerCase(txt[pagenum]["line"+i]["data"]["3"]) = "true" then
+            Else
+              eslcurrentprocess.Restart("-f="+datatoloadpath+" -p="+txt[pagenum]["line"+i]["data"]["3"]+" nosplash -l="+enablelegacy)
+              unloadpage()
+              FCExtensions.AsyncStopAll()
+              Program.Delay(500)
+              Program.End()
+            EndIf
+          EndIf
+        EndIf
+      EndIf
+      If txt[pagenum]["line"+i]["type"]["1"] = "sound" Or txt[pagenum]["line"+i]["type"]["1"] = "music" Or txt[pagenum]["line"+i]["type"]["1"] = "audio" Then
+        'dummy if block
+      EndIf
+      If txt[pagenum]["line"+i]["type"]["1"] = "media" Or txt[pagenum]["line"+i]["type"]["1"] = "video" Or txt[pagenum]["line"+i]["type"]["1"] = "motion_picture" Then
+        Shapes.ShowShape(object[pagenum][i])
+        LDShapes.SetImage(mediaplayerstats[ctmpaudioreg]["ph"],mediaplayerstats[ctmpaudioreg]["play"])
+        animate()
+      EndIf
+      If txt[pagenum]["line"+i]["type"]["1"] = "background_color" Or txt[pagenum]["line"+i]["type"]["1"] = "background_colour" Then
+        GraphicsWindow.BackgroundColor = txt[pagenum]["line"+i]["data"]["1"]
+      EndIf
+      If txt[pagenum]["line"+i]["type"]["1"] = "background_image" Then
+        LDGraphicsWindow.BackgroundImage(img[txt[pagenum]["line"+i]["data"]["1"]]["imglst"])
+      EndIf
+      If object[pagenum][i] = "" Then
+        object[pagenum][i] = "-"
+      EndIf
+      per = per + aper
+      LDControls.ProgressBarValue(lbar,per)
+    EndFor
+    For i200 = 1 To LDQueue.GetCount("MEDIA"+pagenum)
+      ctmpaudioreg = LDQueue.Dequeue("MEDIA"+pagenum)
+      Controls.Move(ctmpaudioreg,Shapes.GetLeft(mediaplayerstats[ctmpaudioreg]["ph"]),Shapes.GetTop(mediaplayerstats[ctmpaudioreg]["ph"]))
+      If mediaplayerstats[ctmpaudioreg]["ismusic"] Then
+        Controls.Move(mediaplayerstats[ctmpaudioreg]["musicimg"],Shapes.GetLeft(mediaplayerstats[ctmpaudioreg]["ph"]),Shapes.GetTop(mediaplayerstats[ctmpaudioreg]["ph"]))
+      EndIf
+      LDQueue.Enqueue("MEDIA"+pagenum,ctmpaudioreg)
+    EndFor
+    For i101 = 1 To LDQueue.GetCount("AUDIO"+pagenum)
+      ctmpaudioreg = LDQueue.Dequeue("AUDIO"+pagenum)
+      Controls.Move(ctmpaudioreg,0,0)
+      ldcontrols.MediaPlayerPlay(ctmpaudioreg)
+      LDQueue.Enqueue("AUDIO"+pagenum,ctmpaudioreg)
+    EndFor
+    For i105 = 1 To LDQueue.GetCount("MEDIAA"+pagenum)
+      ctmpaudioreg = LDQueue.Dequeue("MEDIAA"+pagenum)
+      LDQueue.Enqueue("MEDIAA"+pagenum,ctmpaudioreg)
+      Controls.ShowControl(ctmpaudioreg)
+      mediaplayerstats[ctmpaudioreg]["stopped"] = "False"
+      mediaplayerstats[ctmpaudioreg]["isplaying"] = "True"
+      Shapes.HideShape(mediaplayerstats[ctmpaudioreg]["ph"])
+      ldcontrols.MediaPlayerPlay(ctmpaudioreg)
+      If mediaplayerstats[ctmpaudioreg]["ismusic"] Then
+        Shapes.ShowShape(mediaplayerstats[ctmpaudioreg]["musicimg"])
+      EndIf
+    EndFor
+    audiolooptid = FCExtensions.AsyncCall("audioloop")
+    If audiolooptid < 1 then
+      While audiolooptid < 1
+        audiolooptid = FCExtensions.AsyncCall("audioloop")
+        Program.Delay(10)
+      EndWhile
+    EndIf
+  EndIf
+  LDControls.ProgressBarValue(lbar,90)
+  While LDQueue.GetCount("QANIMQ") > 0 Or LDQueue.GetCount("QANIM") > 0
+    Program.Delay(10)
+  EndWhile
+  LDControls.ProgressBarValue(lbar,95)
+  While opacityrunning
+    Program.Delay(10)
+  EndWhile
+  LDControls.ProgressBarValue(lbar,99)
+  For i9989978 = 1 To Array.GetItemCount(object[pagenum])
+    Shapes.SetOpacity(object[pagenum][i9989978],100)
+  EndFor
+  LDControls.ProgressBarValue(lbar,100)
+  LDCursors.Arrow()
+  loadingpage = "False"
+EndSub
+
+Sub buttonclicked
+  lstbuttonclk = Controls.LastClickedButton
+  If lstbuttonclk = next Then
+    LDQueue.Enqueue("EXEC","addpage")
+  EndIf
+  If lstbuttonclk = back Then
+    LDQueue.Enqueue("EXEC","minuspage")
+  EndIf
+  If lstbuttonclk = ok Then
+    LDQueue.Enqueue("EXEC","setpage")
+  EndIf
+  If lstbuttonclk = exit Then
+    onexit()
+  EndIf
+  If lstbuttonclk = relaunch Then
+    LDQueue.Enqueue("EXEC","unloadpage")
+    restart()
+    FCExtensions.AsyncStopAll()
+    Program.Delay(500)
+    Program.End()
+  EndIf
+  If lstbuttonclk = about Then
+    LDSound.Beep()
+    GraphicsWindow.ShowMessage("About "+GraphicsWindow.Title+" on winx86 using .net framework 4.5, Created by Captain ALM (Independant developer)."+Text.GetCharacter(10)+Text.GetCharacter(13)+"Program Distribution - GNU GENERAL PUBLIC LICENSE Version 3, June 2007."+Text.GetCharacter(10)+Text.GetCharacter(13)+"(C) Captain ALM 2013-2017 (I allow Distribution(IaD))"+Text.GetCharacter(10)+Text.GetCharacter(13)+"Contact at: captainalm00000@gmail.com , alm00000@outlook.com"+Text.GetCharacter(10)+Text.GetCharacter(13)+"Portions copyright:"+Text.GetCharacter(10)+Text.GetCharacter(13)+"(C) Microsoft corp. 2015"+Text.GetCharacter(10)+Text.GetCharacter(13)+"(C) lit dev 2015"+Text.GetCharacter(10)+Text.GetCharacter(13)+"(C) fermy company 2015."+Text.GetCharacter(10)+Text.GetCharacter(13)+"(C) Liam McSherry 2012-2013."+Text.GetCharacter(10)+Text.GetCharacter(13)+"Report Bugs on the youtube showcase comments and find out how to script pages by pressing the F1 key.",GraphicsWindow.Title)
+  EndIf
+  If lstbuttonclk = locktoolbar Then
+    If toolbarlocked Then
+      Controls.SetButtonCaption(locktoolbar,"  x¬")
+      LDDialogs.ToolTip(locktoolbar,"Lock Toolbar")
+      toolbarlocked = "False"
+    Else
+      Controls.SetButtonCaption(locktoolbar,"X x¬")
+      LDDialogs.ToolTip(locktoolbar,"Unlock Toolbar")
+      toolbarlocked = "True"
+    EndIf
+  EndIf
+  If lstbuttonclk = ppbut  And  LDUtilities.KeyDown("Shift") <> "True" then
+    If mediaplayerstats[mebbarowner]["isplaying"] Then
+      LDQueue.Enqueue("EXEC","mpause:"+mebbarowner)
+    Else
+      LDQueue.Enqueue("EXEC","mplay:"+mebbarowner)
+    EndIf
+  EndIf
+  If lstbuttonclk = ppbut and LDUtilities.KeyDown("Shift") then
+    LDQueue.Enqueue("EXEC","mstop:"+mebbarowner)
+  EndIf 
+  If lstbuttonclk = sbut then
+    LDQueue.Enqueue("EXEC","mstop:"+mebbarowner)
+  EndIf
+  If lstbuttonclk = abut Then
+    If mediaplayerstats[mebbarowner]["isplaying"] <> "True" then
+      If LDUtilities.IsNumber(Controls.GetTextBoxText(txtbxtim)) Then
+        If Controls.GetTextBoxText(txtbxtim) >= 0 Or Controls.GetTextBoxText(txtbxtim) <= 0.1*Math.Round(LDControls.MediaPlayerPlayTime(mediaplayerstats[mebbarowner]["object"])/100) Then
+          LDControls.MediaPlayerSeek(mediaplayerstats[mebbarowner]["object"],100*Math.Round(Controls.GetTextBoxText(txtbxtim)*10))
+        EndIf
+      Else
+        notsetupmedtbar = "True"
+      EndIf
+    EndIf
+  EndIf
+EndSub
+
+Sub unloadpage
+  unloadingpage = "True"
+  LDCursors.Starting()
+  lpagenum = pagenum
+  GraphicsWindow.BackgroundColor = LDColours.White
+  GraphicsWindow.Title = "Player 3.5"
+  opagealive = 0
+  LDControls.ProgressBarValue(lbar,0)
+  If Array.IsArray(object[pagenum]) Then
+    ttlp = Array.GetItemCount(object[pagenum])
+    aper = 1/(ttlp/25)
+    per = 0
+    For i = 1 To Array.GetItemCount(object[pagenum])
+      LDControls.ProgressBarValue(lbar,per)
+      animateh()
+      per = per + aper
+    EndFor
+    FCExtensions.AsyncStop(audiolooptid)
+    audiolooptid = ""
+    For i100098 = 1 To LDQueue.GetCount("AUDIO"+pagenum) Step 1
+      ctmpaudioreg = LDQueue.Dequeue("AUDIO"+pagenum)
+      ldcontrols.MediaPlayerStop(ctmpaudioreg)
+      LDQueue.Enqueue("AUDIO"+pagenum, ctmpaudioreg)
+    EndFor
+    For i100098 = 1 To LDQueue.GetCount("MEDIA"+pagenum) Step 1
+      ctmpaudioreg = LDQueue.Dequeue("MEDIA"+pagenum)
+      ldcontrols.MediaPlayerStop(ctmpaudioreg)
+      Controls.HideControl(ctmpaudioreg)
+      'Shapes.HideShape(mediaplayerstats[ctmpaudioreg]["ph"])
+      If mediaplayerstats[ctmpaudioreg]["ismusic"] Then
+        Shapes.HideShape(mediaplayerstats[ctmpaudioreg]["musicimg"])
+      EndIf
+      LDQueue.Enqueue("MEDIA"+pagenum, ctmpaudioreg)
+    EndFor
+    ttlp = Array.GetItemCount(object[pagenum])
+    aper = 1/(ttlp/25)
+    per = 25
+    For i = 1 To Array.GetItemCount(object[pagenum])
+      LDControls.ProgressBarValue(lbar,per)
+      LDDialogs.ToolTip(object[pagenum][i],"")
+      Shapes.HideShape(object[pagenum][i])
+      per = per + aper
+    EndFor
+  EndIf
+  mebbarowner = ""
+  mebbarownerm = ""
+  For imediatoolbarc = 1 to 6 step 1
+    Shapes.HideShape(mediatoolbar[imediatoolbarc])
+  endfor
+  medbarshown = "False"
+  medtoolbaractive = "False"
+  LDControls.ProgressBarValue(lbar,90)
+  While LDQueue.GetCount("QANIMQ") > 0 Or LDQueue.GetCount("QANIM") > 0
+    Program.Delay(10)
+  EndWhile
+  LDControls.ProgressBarValue(lbar,95)
+  While opacityrunning
+    Program.Delay(10)
+  EndWhile
+  LDControls.ProgressBarValue(lbar,99)
+  For i9989978 = 1 To Array.GetItemCount(object[lpagenum])
+    Shapes.SetOpacity(object[lpagenum][i9989978],0)
+  EndFor
+  LDControls.ProgressBarValue(lbar,100)
+  LDCursors.Arrow()
+  unloadingpage = "False"
+EndSub
+
+Sub audioloop
+  While "True"
+    While LDQueue.GetCount("AUDIOC") > 0
+      For i100 = 1 To LDQueue.GetCount("AUDIOL"+pagenum) Step 1
+        ctmpaudioreg2 = LDQueue.Dequeue("AUDIOL"+pagenum)
+        If ctmpaudioreg2 = LDQueue.Dequeue("AUDIOC") Then
+          ldcontrols.MediaPlayerStop(ctmpaudioreg2)
+          Program.Delay(10)
+          ldcontrols.MediaPlayerPlay(ctmpaudioreg2)
+        EndIf
+        LDQueue.Enqueue("AUDIOL"+pagenum,ctmpaudioreg2)
+      EndFor
+      Program.Delay(10)
+    EndWhile
+    Program.Delay(10)
+  EndWhile
+EndSub
+
+Sub onaudiocomp
+  LDQueue.Enqueue("MEDIAC",LDControls.LastMediaPlayer)
+  LDQueue.Enqueue("AUDIOC",LDControls.LastMediaPlayer)
+EndSub
+
+Sub restart
+  FCExtensions.AsyncStopAll()
+  eslcurrentprocess.Restart("-f="+datatoloadpath+" -p="+pagenum+" nosplash -l="+enablelegacy)
+EndSub
+
+Sub restartselect
+  FCExtensions.AsyncStopAll()
+  eslcurrentprocess.Restart("nosplash -l="+enablelegacy)
+EndSub
+
+Sub onexit
+  LDSound.Beep()
+  chk = FCDialogs.AskForYesNo("Do you want to exit "+GraphicsWindow.Title+"?")
+  If chk = "Yes" Then
+    FCExtensions.AsyncStopAll()
+    Program.End()
+  Else
+    LDGraphicsWindow.CancelClose = "True"
+  EndIf
+EndSub
+
+Sub onmousemove
+  Mouse.ShowCursor()
+  toolbartimeout = toolbarvdelay
+  toolbarshow()
+EndSub
+
+Sub toolbarshow
+  Shapes.ShowShape(toolbar)
+  If disablenextandback <> "True" Then
+    Shapes.ShowShape(back)
+    Shapes.ShowShape(next)
+  EndIf
+  Shapes.ShowShape(ok)
+  Shapes.ShowShape(page)
+  Shapes.ShowShape(relaunch)
+  Shapes.ShowShape(about)
+  Shapes.ShowShape(txtpage)
+  Shapes.ShowShape(lbar)
+  Shapes.ShowShape(locktoolbar)
+  Shapes.ShowShape(exit)
+  toolbarshown = "True"
+EndSub
+
+Sub toolbarhide
+  If toolbarlocked Then
+  Else
+    Shapes.HideShape(toolbar)
+    If disablenextandback <> "True" Then
+      Shapes.HideShape(back)
+      Shapes.HideShape(next)
+    EndIf
+    Shapes.HideShape(ok)
+    Shapes.HideShape(page)
+    Shapes.HideShape(relaunch)
+    Shapes.HideShape(about)
+    Shapes.HideShape(txtpage)
+    Shapes.HideShape(lbar)
+    Shapes.HideShape(locktoolbar)
+    Shapes.HideShape(exit)
+    toolbarshown = "False"
+  EndIf
+EndSub
+
+Sub shapeevent
+  LDQueue.Enqueue("SHAPE_EVENT","1="+LDShapes.LastEventShape+";2="+LDShapes.LastEventType+";")
+EndSub
+
+Sub animate
+  Shapes.HideShape(object[pagenum][i])
+  If enablelegacy Then
+    animationtime = txt[pagenum]["line"+i]["anims"]["1"]
+    animationmove = txt[pagenum]["line"+i]["anims"]["2"]
+    animationglwsw = txt[pagenum]["line"+i]["anims"]["3"]
+  Else
+    animationtime = txt[pagenum]["line"+i]["show_animation"]["1"]
+    animationmove = txt[pagenum]["line"+i]["show_animation"]["2"]
+    animationglwsw = txt[pagenum]["line"+i]["show_animation"]["3"]
+  EndIf
+  Shapes.ShowShape(object[pagenum][i])
+  If animationglwsw Then
+    Shapes.SetOpacity(object[pagenum][i],0)
+  Else
+    Shapes.SetOpacity(object[pagenum][i],100)
+  EndIf
+  If animationmove = 0 Then
+    If enablelegacy Then
+      Shapes.Move(object[pagenum][i],txt[pagenum]["line"+i]["loc"]["1"],txt[pagenum]["line"+i]["loc"]["2"])
+    Else
+      Shapes.Move(object[pagenum][i],txt[pagenum]["line"+i]["location"]["1"],txt[pagenum]["line"+i]["location"]["2"])
+    EndIf
+  Else
+    moveanim()
+  EndIf
+  If animationglwsw Then
+    LDQueue.Enqueue("QANIMQ","1="+object[pagenum][i]+";2="+animationtime+";3=True;4=0;")
+    '  For i2 = 0 To 100 Step 5
+    '    Shapes.SetOpacity(object[i],i2)
+    '    Program.Delay(animationtime/20)
+    '  EndFor
+  EndIf
+EndSub
+
+Sub animateh
+  If enablelegacy Then
+    animationtime2 = txt[pagenum]["line"+i]["animh"]["1"]
+    animationmove2 = txt[pagenum]["line"+i]["animh"]["2"]
+    animationglwsw2 = txt[pagenum]["line"+i]["animh"]["3"]
+  Else
+    animationtime2 = txt[pagenum]["line"+i]["hide_animation"]["1"]
+    animationmove2 = txt[pagenum]["line"+i]["hide_animation"]["2"]
+    animationglwsw2 = txt[pagenum]["line"+i]["hide_animation"]["3"]
+  EndIf
+  Shapes.ShowShape(object[pagenum][i])
+  If animationglwsw2 Then
+    Shapes.SetOpacity(object[pagenum][i],100)
+  Else
+    Shapes.SetOpacity(object[pagenum][i],0)    
+  EndIf
+  If animationmove2 = 0 Then
+    If enablelegacy Then
+      Shapes.Move(object[pagenum][i],txt[pagenum]["line"+i]["loc"]["1"],txt[pagenum]["line"+i]["loc"]["2"])
+    Else
+      Shapes.Move(object[pagenum][i],txt[pagenum]["line"+i]["location"]["1"],txt[pagenum]["line"+i]["location"]["2"])
+    EndIf
+  Else
+    moveanimh()
+  EndIf
+  If animationglwsw2 Then
+    LDQueue.Enqueue("QANIMQ","1="+object[pagenum][i]+";2="+animationtime2+";3=False;4=100;")
+    'For i2 = 100 To 0 Step -5
+    '  Shapes.SetOpacity(object[i],i2)
+    '  Program.Delay(animationtime2/20)
+    'EndFor
+  EndIf
+EndSub
+
+Sub moveanim
+  If text.ConvertToLowerCase(enablelegacy) <> "true" Then
+    txt[pagenum]["line"+i]["loc"]["1"] = txt[pagenum]["line"+i]["location"]["1"]
+    txt[pagenum]["line"+i]["loc"]["2"] = txt[pagenum]["line"+i]["location"]["2"]
+  EndIf
+  Shapes.Move(object[pagenum][i],txt[pagenum]["line"+i]["loc"]["1"],txt[pagenum]["line"+i]["loc"]["2"])
+  If animationmove = 1 Then
+    Shapes.Move(object[pagenum][i],txt[pagenum]["line"+i]["loc"]["1"],-500)
+  ElseIf animationmove = 2 then
+    Shapes.Move(object[pagenum][i],graphicswindow.Width+1000,-500)
+  ElseIf animationmove = 3 then
+    Shapes.Move(object[pagenum][i],graphicswindow.Width+1000,txt[pagenum]["line"+i]["loc"]["2"])
+  ElseIf animationmove = 4 then
+    Shapes.Move(object[pagenum][i],graphicswindow.Width+1000,graphicswindow.Height+500)
+  ElseIf animationmove = 5 then
+    Shapes.Move(object[pagenum][i],txt[pagenum]["line"+i]["loc"]["1"],graphicswindow.Height+500)
+  ElseIf animationmove = 6 then
+    Shapes.Move(object[pagenum][i],-1000,graphicswindow.Height+500)
+  ElseIf animationmove = 7 then
+    Shapes.Move(object[pagenum][i],-1000,txt[pagenum]["line"+i]["loc"]["2"])
+  ElseIf animationmove = 8 then
+    Shapes.Move(object[pagenum][i],-1000,-500)
+  EndIf
+  Shapes.Animate(object[pagenum][i],txt[pagenum]["line"+i]["loc"]["1"],txt[pagenum]["line"+i]["loc"]["2"],animationtime)
+EndSub
+
+Sub moveanimh
+  If text.ConvertToLowerCase(enablelegacy) <> "true" Then
+    txt[pagenum]["line"+i]["loc"]["1"] = txt[pagenum]["line"+i]["location"]["1"]
+    txt[pagenum]["line"+i]["loc"]["2"] = txt[pagenum]["line"+i]["location"]["2"]
+  EndIf
+  If animationmove = 1 Then
+    Shapes.Animate(object[pagenum][i],txt[pagenum]["line"+i]["loc"]["1"],-500,animationtime2)
+  ElseIf animationmove = 2 then
+    Shapes.Animate(object[pagenum][i],graphicswindow.Width+1000,-500,animationtime2)
+  ElseIf animationmove = 3 then
+    Shapes.Animate(object[pagenum][i],graphicswindow.Width+1000,txt[pagenum]["line"+i]["loc"]["2"],animationtime2)
+  ElseIf animationmove = 4 then
+    Shapes.Animate(object[pagenum][i],graphicswindow.Width+1000,graphicswindow.Height+500,animationtime2)
+  ElseIf animationmove = 5 then
+    Shapes.Animate(object[pagenum][i],txt[pagenum]["line"+i]["loc"]["1"],graphicswindow.Height+500,animationtime2)
+  ElseIf animationmove = 6 then
+    Shapes.Animate(object[pagenum][i],-1000,graphicswindow.Height+500,animationtime2)
+  ElseIf animationmove = 7 then
+    Shapes.Animate(object[pagenum][i],-1000,txt[pagenum]["line"+i]["loc"]["2"],animationtime2)
+  ElseIf animationmove = 8 then
+    Shapes.Animate(object[pagenum][i],-1000,-500,animationtime2)
+  EndIf
+EndSub
+
+Sub opacity
+  While "True"
+    While LDQueue.GetCount("QANIMQ") > 0
+      canim = LDQueue.Dequeue("QANIMQ")
+      LDQueue.Enqueue("QANIM",canim)
+      opacityrunning = "True"
+    EndWhile
+    If LDQueue.GetCount("QANIM") > 0 Then
+      'While LDQueue.GetCount("QANIM") > 0
+      canim = LDQueue.Dequeue("QANIM")
+      canimobj = canim[1] 'current opacity object
+      canimdur = canim[2] 'total duration of the object
+      canimsh = canim[3] 'if the object is showing or hiding
+      canimln = canim[4] 'the last percentage given
+      If canimsh then
+        canimln = (opagealive/canimdur)*100
+        Shapes.SetOpacity(canimobj,canimln)
+      Else
+        canimln = 100 - ((opagealive/canimdur)*100)
+        Shapes.SetOpacity(canimobj,canimln)
+      EndIf
+      canim[4] = canimln
+      LDQueue.Enqueue("DEBUG","Opagealive : " + opagealive)
+      LDQueue.Enqueue("DEBUG","Opacity: " + canim)
+      If canimln < 100 And canimsh Then
+        LDQueue.Enqueue("QANIM",canim)
+      ElseIf canimln > 0 And canimsh <> "True" Then
+        LDQueue.Enqueue("QANIM",canim)
+      EndIf
+      opagealive = opagealive + 10
+      'endwhile
+    Else
+      opagealive = 0
+      opacityrunning = "False"
+    EndIf
+    If purgeopacity Then
+      While LDQueue.GetCount("QANIMQ") > 0
+        LDQueue.Dequeue("QANIMQ")
+      EndWhile
+      While LDQueue.GetCount("QANIM") > 0
+        LDQueue.Dequeue("QANIM")
+      EndWhile
+      purgeopacity = "False"
+    EndIf
+    Program.Delay(10)
+  EndWhile
+EndSub
+
+Sub load
+  ttlfilsper = Array.GetItemCount(filestoload)
+  LDControls.ProgressBarValue(lbar,0)
+  If ttlfilsper <> 0 Then
+    aper = 1/(ttlfilsper/100)
+    per = 0
+    For i = 1 To Array.GetItemCount(filestoload)
+      If LDFile.GetExtension(filestoload[i]) = "png" Or LDFile.GetExtension(filestoload[i]) = "gif" Or LDFile.GetExtension(filestoload[i]) = "jpg" or LDFile.GetExtension(filestoload[i]) = "jpeg" Then
+        img[LDFile.GetFile(filestoload[i])+"."+LDFile.GetExtension(filestoload[i])]["path"] = filestoload[i]
+        img[LDFile.GetFile(filestoload[i])+"."+LDFile.GetExtension(filestoload[i])]["imglst"] = ImageList.LoadImage(filestoload[i])
+        img[LDFile.GetFile(filestoload[i])+"."+LDFile.GetExtension(filestoload[i])]["height"] = ImageList.GetHeightOfImage(filestoload[i])
+        img[LDFile.GetFile(filestoload[i])+"."+LDFile.GetExtension(filestoload[i])]["width"] = ImageList.GetWidthOfImage(filestoload[i])
+      ElseIf LDFile.GetExtension(filestoload[i]) = "txt" then
+        txt[File.ReadLine(filestoload[i],1)]["length"] = ldFile.Length(filestoload[i])
+        For i2 = 2 to txt[File.ReadLine(filestoload[i],1)]["length"] Step 1
+          tmp1 = File.ReadLine(filestoload[i],i2)
+          tmp2 = 0
+          tmp3 = ""
+          tmp4 = 1
+          method = ""
+          argument = ""
+          isescape = "False"
+          For i3 = 1 to Text.GetLength(tmp1)
+            If tmp2 = 0 then
+              If Text.GetSubText(tmp1,i3,1) = ":" and isescape = "False" then
+                tmp3 = method
+                method = ""
+                tmp2 = 1
+                Goto continue
+              ElseIf Text.GetSubText(tmp1,i3,1) = "/" and isescape = "False" then
+                isescape = "True"
+              Else
+                method = Text.Append(method,Text.GetSubText(tmp1,i3,1))
+                isescape = "False"
+              EndIf
+            Else
+              If Text.GetSubText(tmp1,i3,1) = ";"  and isescape = "False" then
+                txt[File.ReadLine(filestoload[i],1)]["line"+(i2-1)][tmp3][tmp4] = argument
+                tmp4 = 1
+                argument = ""
+                tmp2 = 0
+                Goto continue
+              elseif Text.GetSubText(tmp1,i3,1) = ","  and isescape = "False" then
+                txt[File.ReadLine(filestoload[i],1)]["line"+(i2-1)][tmp3][tmp4] = argument
+                argument = ""
+                tmp4 = tmp4 + 1
+                Goto continue
+              ElseIf Text.GetSubText(tmp1,i3,1) = "/" and isescape = "False" then
+                isescape = "True"
+              Else
+                argument = Text.Append(argument,Text.GetSubText(tmp1,i3,1))
+                isescape = "False"
+              EndIf
+            EndIf
+            continue:
+          EndFor
+        EndFor
+      ElseIf LDFile.GetExtension(filestoload[i]) = "wav" Or LDFile.GetExtension(filestoload[i]) = "mp3" Or LDFile.GetExtension(filestoload[i]) = "wma" or LDFile.GetExtension(filestoload[i]) = "ogg" or LDFile.GetExtension(filestoload[i]) = "mkv" or LDFile.GetExtension(filestoload[i]) = "wmv" or LDFile.GetExtension(filestoload[i]) = "mp4" or LDFile.GetExtension(filestoload[i]) = "mpg" or LDFile.GetExtension(filestoload[i]) = "mpeg" or LDFile.GetExtension(filestoload[i]) = "mpeg-4" or LDFile.GetExtension(filestoload[i]) = "avi" or LDFile.GetExtension(filestoload[i]) = "ogv" Then
+        sounds[LDFile.GetFile(filestoload[i])+"."+LDFile.GetExtension(filestoload[i])]["path"] = filestoload[i]
+        media[LDFile.GetFile(filestoload[i])+"."+LDFile.GetExtension(filestoload[i])]["path"] = filestoload[i]
+        sounds[LDFile.GetFile(filestoload[i])+"."+LDFile.GetExtension(filestoload[i])]["length"] = ldfile.musicplaytime(filestoload[i])
+        media[LDFile.GetFile(filestoload[i])+"."+LDFile.GetExtension(filestoload[i])]["length"] = ldfile.musicplaytime(filestoload[i])
+      EndIf
+      per = per + aper
+      LDControls.ProgressBarValue(lbar,per)
+    EndFor
+  EndIf
+  LDControls.ProgressBarValue(lbar,100)
+EndSub
+
+Sub resize
+  LDQueue.Enqueue("DEBUG","Window Resized")
+  sizefomula = GraphicsWindow.Width/90
+  LDGraphicsWindow.PauseUpdates()
+  ldShapes.SetSize(toolbar,GraphicsWindow.Width,35)
+  Shapes.Move(toolbar,0,GraphicsWindow.Height - 35)
+  ldShapes.SetSize(toolbar2,GraphicsWindow.Width,5)
+  Shapes.Move(toolbar2,0,GraphicsWindow.Height - 5)
+  Controls.Move(locktoolbar,1*(sizefomula),GraphicsWindow.Height - 30)
+  Controls.Move(back,7*(sizefomula),GraphicsWindow.Height - 30)
+  Controls.Move(next,60*(sizefomula),GraphicsWindow.Height - 30)
+  Controls.Move(ok,23*(sizefomula)+230,GraphicsWindow.Height - 30)
+  Controls.Move(exit,80*(sizefomula),GraphicsWindow.Height - 30)
+  Controls.Move(page,23*(sizefomula)+65, GraphicsWindow.Height - 30)
+  Controls.Move(relaunch,67*(sizefomula),GraphicsWindow.Height - 30)
+  Controls.Move(about,73*(sizefomula),GraphicsWindow.Height - 30)
+  Shapes.Move(txtpage,23*(sizefomula),GraphicsWindow.Height-30)
+  Controls.Move(lbar,47*(sizefomula),GraphicsWindow.Height - 30)
+  LDGraphicsWindow.ResumeUpdates()
+EndSub
+
+Sub splash
+  LDGraphicsWindow.State = 0
+  GraphicsWindow.CanResize = "False"
+  splashimg = ImageList.LoadImage(Program.Directory+"\splash3.5.png")
+  GraphicsWindow.Width = ImageList.GetWidthOfImage(splashimg)
+  GraphicsWindow.Height = ImageList.GetHeightOfImage(splashimg)
+  splaho[1] = Shapes.AddImage(splashimg)
+  LDGraphicsWindow.PauseUpdates()
+  splaht = "Captain ALM"
+  For i = 1 to Text.GetLength(splaht)
+    GraphicsWindow.BrushColor = "Red"
+    GraphicsWindow.PenColor = "Red"
+    GraphicsWindow.FontSize = 28
+    splaho[i+1] = Shapes.AddText(Text.GetSubText(splaht,i,1))
+    Shapes.Move(splaho[i+1],(i-0.5)*80,300)
+    Shapes.HideShape(splaho[i+1])
+    GraphicsWindow.FontSize = 12
+    GraphicsWindow.BrushColor = "Black"
+    GraphicsWindow.PenColor = "Black"
+  EndFor
+  For i = 1 To Array.GetItemCount(splaho)
+    LDShapes.ZIndex(splaho[i],2)
+  EndFor
+  resize()
+  LDGraphicsWindow.ResumeUpdates()
+  
+  For i = 1 To Array.GetItemCount(splaho)
+    Shapes.ShowShape(splaho[i])
+  EndFor
+  Program.Delay(1500)
+  For i = 2 To Array.GetItemCount(splaho) - 4
+    FCExtensions.AsyncCall("animatesplash"+i)
+  EndFor
+  For i = 2 To 8
+    LDShapes.PenColour(splaho[i],LDColours.Blue)
+  EndFor
+  
+  LDShapes.PenColour(splaho[10],LDColours.OrangeRed)
+  LDShapes.PenColour(splaho[11],LDColours.OrangeRed)
+  LDShapes.PenColour(splaho[12],LDColours.OrangeRed)
+  Program.Delay(5500)
+  FCExtensions.AsyncStopAll()
+  
+  LDGraphicsWindow.PauseUpdates()
+  For i = 1 To Array.GetItemCount(splaho)
+    Shapes.Remove(splaho[i])
+  EndFor
+  GraphicsWindow.Height = Desktop.Height - 90
+  GraphicsWindow.Width = Desktop.Width - 10
+  resize()
+  LDGraphicsWindow.ResumeUpdates()
+  LDGraphicsWindow.State = 2
+  GraphicsWindow.CanResize = "True"
+EndSub
+Sub animatesplash2
+  Shapes.Animate(splaho[2],(8-0.5)*80,300,1000)
+EndSub
+Sub animatesplash3
+  Shapes.Animate(splaho[3],(8-0.5)*80,300,1000)
+  For i2 = 100 To 1 Step -5
+    shapes.SetOpacity(splaho[3],i2)
+    Program.Delay(100)
+  EndFor
+  Shapes.HideShape(splaho[3])
+EndSub
+Sub animatesplash4
+  Shapes.Animate(splaho[4],(8-0.5)*80,300,1000)
+  For i2 = 100 To 1 Step -5
+    shapes.SetOpacity(splaho[4],i2)
+    Program.Delay(100)
+  EndFor
+  Shapes.HideShape(splaho[4])
+EndSub
+Sub animatesplash5
+  Shapes.Animate(splaho[5],(8-0.5)*80,300,1000)
+  For i2 = 100 To 1 Step -5
+    shapes.SetOpacity(splaho[5],i2)
+    Program.Delay(100)
+  EndFor
+  Shapes.HideShape(splaho[5])
+EndSub
+Sub animatesplash6
+  Shapes.Animate(splaho[6],(8-0.5)*80,300,1000)
+  For i2 = 100 To 1 Step -5
+    shapes.SetOpacity(splaho[6],i2)
+    Program.Delay(100)
+  EndFor
+  Shapes.HideShape(splaho[6])
+EndSub
+Sub animatesplash7
+  Shapes.Animate(splaho[7],(8-0.5)*80,300,1000)
+  For i2 = 100 To 1 Step -5
+    shapes.SetOpacity(splaho[7],i2)
+    Program.Delay(100)
+  EndFor
+  Shapes.HideShape(splaho[7])
+EndSub
+Sub animatesplash8
+  Shapes.Animate(splaho[8],(8-0.5)*80,300,1000)
+  For i2 = 100 To 1 Step -5
+    shapes.SetOpacity(splaho[8],i2)
+    Program.Delay(100)
+  EndFor
+  Shapes.HideShape(splaho[8])
+EndSub
+
+Sub onmediaopened
+  medialoaded = "True"
+EndSub
+
+'to preload dynamic visual page objects
+Sub loadpages
+  If Array.IsArray(txt) Then
+    txtarrind = Array.GetAllIndices(txt)
+    ttlp = Array.GetItemCount(txtarrind)
+    aper = 1/(ttlp/100)
+    per = 0
+    For i2 = 1 To Array.GetItemCount(txtarrind)
+      For i = 1 To Array.GetItemCount(txt[txtarrind[i2]])
+        If txt[txtarrind[i2]]["line"+i]["type"]["1"] = "img" or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "image" or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "static_image"Then
+          If enablelegacy then
+            LDGraphicsWindow.PauseUpdates()
+            object[txtarrind[i2]][i] = Shapes.AddImage(img[txt[txtarrind[i2]]["line"+i]["imgn"]["1"]]["imglst"])
+            Shapes.SetOpacity(object[txtarrind[i2]][i],0)
+            LDGraphicsWindow.ResumeUpdates()
+            LDShapes.SetSize(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["imgn"]["2"],txt[txtarrind[i2]]["line"+i]["imgn"]["3"])
+            LDDialogs.ToolTip(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["imgn"]["4"])
+          Else
+            LDGraphicsWindow.PauseUpdates()
+            object[txtarrind[i2]][i] = Shapes.AddImage(img[txt[txtarrind[i2]]["line"+i]["data"]["1"]]["imglst"])
+            Shapes.SetOpacity(object[txtarrind[i2]][i],0)
+            LDGraphicsWindow.ResumeUpdates()
+            LDShapes.SetSize(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["data"]["2"],txt[txtarrind[i2]]["line"+i]["data"]["3"])
+            LDDialogs.ToolTip(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["data"]["4"])
+          EndIf
+          Shapes.HideShape(object[txtarrind[i2]][i])
+        EndIf
+        If txt[txtarrind[i2]]["line"+i]["type"]["1"] = "aig"  or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "animated_image" Then
+          If enablelegacy then
+            LDGraphicsWindow.PauseUpdates()
+            object[txtarrind[i2]][i] = LDShapes.AddAnimatedGif(img[txt[txtarrind[i2]]["line"+i]["imga"]["1"]]["path"],txt[txtarrind[i2]]["line"+i]["imga"]["4"])
+            Shapes.SetOpacity(object[txtarrind[i2]][i],0)
+            LDGraphicsWindow.ResumeUpdates()
+            LDShapes.SetSize(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["imga"]["2"],txt[txtarrind[i2]]["line"+i]["imga"]["3"])
+            LDDialogs.ToolTip(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["imga"]["5"])
+          Else
+            LDGraphicsWindow.PauseUpdates()
+            object[txtarrind[i2]][i] = LDShapes.AddAnimatedGif(img[txt[txtarrind[i2]]["line"+i]["data"]["1"]]["path"],txt[txtarrind[i2]]["line"+i]["data"]["4"])
+            Shapes.SetOpacity(object[txtarrind[i2]][i],0)
+            LDGraphicsWindow.ResumeUpdates()
+            LDShapes.SetSize(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["data"]["2"],txt[txtarrind[i2]]["line"+i]["data"]["3"])
+            LDDialogs.ToolTip(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["data"]["5"])
+          EndIf
+          Shapes.HideShape(object[txtarrind[i2]][i])
+        EndIf
+        'legacy stuff checker
+        If enablelegacy Then
+          'legacy
+          If txt[txtarrind[i2]]["line"+i]["type"]["1"] = "tit" Or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "title"  Then
+            obrush = GraphicsWindow.BrushColor
+            GraphicsWindow.BrushColor = txt[txtarrind[i2]]["line"+i]["text"]["2"]
+            GraphicsWindow.PenColor = txt[txtarrind[i2]]["line"+i]["text"]["2"]
+            GraphicsWindow.FontSize = 32
+            GraphicsWindow.FontName = txt[txtarrind[i2]]["line"+i]["text"]["3"]
+            LDGraphicsWindow.PauseUpdates()
+            object[txtarrind[i2]][i] = Shapes.AddText(txt[txtarrind[i2]]["line"+i]["text"]["1"])
+            GraphicsWindow.BrushColor = obrush
+            GraphicsWindow.PenColor = obrush
+            GraphicsWindow.FontSize = itsz
+            GraphicsWindow.FontSize = itfn
+            LDDialogs.ToolTip(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["text"]["4"])
+            Shapes.SetOpacity(object[txtarrind[i2]][i],0)
+            LDGraphicsWindow.ResumeUpdates()
+            Shapes.HideShape(object[txtarrind[i2]][i])
+          EndIf
+          'legacy
+          If txt[txtarrind[i2]]["line"+i]["type"]["1"] = "txt" Or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "text"Then
+            GraphicsWindow.BrushColor = txt[txtarrind[i2]]["line"+i]["text"]["2"]
+            GraphicsWindow.PenColor = txt[txtarrind[i2]]["line"+i]["text"]["2"]
+            GraphicsWindow.FontSize = 12
+            GraphicsWindow.FontName = txt[txtarrind[i2]]["line"+i]["text"]["3"]
+            LDGraphicsWindow.PauseUpdates()
+            object[txtarrind[i2]][i] = Shapes.AddText(txt[txtarrind[i2]]["line"+i]["text"]["1"])
+            GraphicsWindow.BrushColor = obrush
+            GraphicsWindow.PenColor = obrush
+            GraphicsWindow.FontSize = itsz
+            GraphicsWindow.FontName = itfn
+            LDDialogs.ToolTip(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["text"]["4"])
+            Shapes.SetOpacity(object[txtarrind[i2]][i],0)
+            LDGraphicsWindow.ResumeUpdates()
+            Shapes.HideShape(object[txtarrind[i2]][i])
+          EndIf
+        Else
+          'legacy replacement
+          If txt[txtarrind[i2]]["line"+i]["type"]["1"] = "txt" Or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "text" Then
+            GraphicsWindow.BrushColor = txt[txtarrind[i2]]["line"+i]["data"]["2"]
+            GraphicsWindow.PenColor = txt[txtarrind[i2]]["line"+i]["data"]["2"]
+            If txt[txtarrind[i2]]["line"+i]["data"]["4"] <> "" then
+              GraphicsWindow.FontSize = txt[txtarrind[i2]]["line"+i]["data"]["4"]
+            Else
+              GraphicsWindow.FontSize = 18
+            EndIf
+            GraphicsWindow.FontName = txt[txtarrind[i2]]["line"+i]["data"]["3"]
+            LDGraphicsWindow.PauseUpdates()
+            object[txtarrind[i2]][i] = Shapes.AddText(txt[txtarrind[i2]]["line"+i]["data"]["1"])
+            GraphicsWindow.BrushColor = obrush
+            GraphicsWindow.PenColor = obrush
+            GraphicsWindow.FontSize = itsz
+            GraphicsWindow.FontName = itfn
+            LDDialogs.ToolTip(object[txtarrind[i2]][i],txt[txtarrind[i2]]["line"+i]["data"]["5"])
+            Shapes.SetOpacity(object[txtarrind[i2]][i],0)
+            LDGraphicsWindow.ResumeUpdates()
+            Shapes.HideShape(object[txtarrind[i2]][i])
+          EndIf
+        EndIf
+        If txt[txtarrind[i2]]["line"+i]["type"]["1"] = "sound" Or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "music" Or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "audio" Then
+          LDGraphicsWindow.PauseUpdates()
+          ctmpaudioreg = ldcontrols.AddMediaPlayer(1,1)
+          Controls.HideControl(ctmpaudioreg)
+          ldcontrols.MediaPlayerLoad(ctmpaudioreg,sounds[txt[txtarrind[i2]]["line"+i]["data"]["1"]]["path"])
+          LDQueue.Enqueue("AUDIO"+txtarrind[i2],ctmpaudioreg)
+          If txt[pagenum]["line"+i]["data"]["2"] then
+            LDQueue.Enqueue("AUDIOL"+txtarrind[i2],ctmpaudioreg)
+          EndIf
+          LDGraphicsWindow.ResumeUpdates()
+        EndIf
+        If txt[txtarrind[i2]]["line"+i]["type"]["1"] = "media" Or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "video" Or txt[txtarrind[i2]]["line"+i]["type"]["1"] = "motion_picture" Then
+          LDGraphicsWindow.PauseUpdates()
+          ctmpaudioreg = ldcontrols.AddMediaPlayer(txt[txtarrind[i2]]["line"+i]["data"]["3"],txt[txtarrind[i2]]["line"+i]["data"]["4"])
+          LDControls.MediaPlayerStretch(ctmpaudioreg,"Fill")
+          ldcontrols.MediaPlayerLoad(ctmpaudioreg,media[txt[txtarrind[i2]]["line"+i]["data"]["1"]]["path"])
+          LDQueue.Enqueue("MEDIA"+txtarrind[i2],ctmpaudioreg)
+          If txt[txtarrind[i2]]["line"+i]["data"]["5"] then
+            LDQueue.Enqueue("MEDIAA"+txtarrind[i2],ctmpaudioreg)
+          EndIf
+          medialoaded = "False"
+          LDControls.MediaPlayerPlay(ctmpaudioreg)
+          medialoadtout = 0
+          While medialoaded <> "True" And medialoadtout < 10000
+            Program.Delay(10)
+            medialoadtout = medialoadtout + 1
+          EndWhile
+          If LDShapes.Height(ctmpaudioreg) = 0 or LDShapes.Width(ctmpaudioreg) = 0  then
+            mediaplayerstats[ctmpaudioreg]["ismusic"] = "True"
+          Else
+            mediaplayerstats[ctmpaudioreg]["ismusic"] = "False"
+          EndIf
+          LDControls.MediaPlayerStop(ctmpaudioreg)
+          medialoaded = "False"
+          medialoadtout =0
+          Controls.HideControl(ctmpaudioreg)
+          If txt[txtarrind[i2]]["line"+i]["data"]["6"] then
+            LDQueue.Enqueue("MEDIAL"+txtarrind[i2],ctmpaudioreg)
+          EndIf
+          mediaplayerstats[ctmpaudioreg]["object"] = ctmpaudioreg
+          mediaplayerstats[ctmpaudioreg]["bimg"] = img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["imglst"]
+          If mediaplayerstats[ctmpaudioreg]["ismusic"] then
+            mediaplayerstats[ctmpaudioreg]["musicimg"] = Shapes.AddImage(mediaplayerstats[ctmpaudioreg]["bimg"])
+            LDShapes.SetSize(mediaplayerstats[ctmpaudioreg]["musicimg"],txt[txtarrind[i2]]["line"+i]["data"]["3"],txt[txtarrind[i2]]["line"+i]["data"]["4"])
+            LDShapes.SetImage(mediaplayerstats[ctmpaudioreg]["musicimg"],mediaplayerstats[ctmpaudioreg]["bimg"])
+            Shapes.HideShape(mediaplayerstats[ctmpaudioreg]["musicimg"])
+          EndIf
+          'draw def
+          bluecolour = LDColours.SetOpacity(LDColours.BlueViolet,3*((256/4)-1))
+          'give the play image
+          mediaplayerstats[ctmpaudioreg]["image"] = FCDrawings.CreateGraphicsFromImage(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["imglst"])
+          FCDrawings.DrawLine(mediaplayerstats[ctmpaudioreg]["image"],bluecolour,"10",0.5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),2*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6),2.5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),3.5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6))
+          FCDrawings.DrawLine(mediaplayerstats[ctmpaudioreg]["image"],bluecolour,"10",0.5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6),2.5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),3.5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6))
+          FCDrawings.DrawLine(mediaplayerstats[ctmpaudioreg]["image"],bluecolour,"10",0.5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),2*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6),0.5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6))
+          mediaplayerstats[ctmpaudioreg]["play"] = FCDrawings.GenerateImage(mediaplayerstats[ctmpaudioreg]["image"])
+          FCDrawings.ReleaseGraphics(mediaplayerstats[ctmpaudioreg]["image"])
+          'give the pause image
+          mediaplayerstats[ctmpaudioreg]["image"] = FCDrawings.CreateGraphicsFromImage(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["imglst"])
+          FCDrawings.DrawLine(mediaplayerstats[ctmpaudioreg]["image"],bluecolour,"10",3*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),2*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6),3*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6))
+          FCDrawings.DrawLine(mediaplayerstats[ctmpaudioreg]["image"],bluecolour,"10",1*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),2*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6),1*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),5*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/6))
+          mediaplayerstats[ctmpaudioreg]["pause"] = FCDrawings.GenerateImage(mediaplayerstats[ctmpaudioreg]["image"])
+          FCDrawings.ReleaseGraphics(mediaplayerstats[ctmpaudioreg]["image"])
+          'give the stop image
+          mediaplayerstats[ctmpaudioreg]["image"] = FCDrawings.CreateGraphicsFromImage(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["imglst"])
+          FCDrawings.DrawRectangle(mediaplayerstats[ctmpaudioreg]["image"],bluecolour,"10",1*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),1*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/3),2*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["width"]/4),2*(img[txt[txtarrind[i2]]["line"+i]["data"]["2"]]["height"]/3))
+          mediaplayerstats[ctmpaudioreg]["stop"] = FCDrawings.GenerateImage(mediaplayerstats[ctmpaudioreg]["image"])
+          FCDrawings.ReleaseGraphics(mediaplayerstats[ctmpaudioreg]["image"])
+          mediaplayerstats[ctmpaudioreg]["ph"] = Shapes.AddImage(mediaplayerstats[ctmpaudioreg]["play"])
+          LDShapes.SetSize(mediaplayerstats[ctmpaudioreg]["ph"],txt[txtarrind[i2]]["line"+i]["data"]["3"],txt[txtarrind[i2]]["line"+i]["data"]["4"])
+          LDShapes.SetImage(mediaplayerstats[ctmpaudioreg]["ph"],mediaplayerstats[ctmpaudioreg]["play"])
+          object[txtarrind[i2]][i] = mediaplayerstats[ctmpaudioreg]["ph"]
+          mediaplayerstats[ctmpaudioreg]["stopped"] = "True"
+          mediaplayerstats[ctmpaudioreg]["isplaying"] = "False"
+          mediaplayerstats[ctmpaudioreg]["paused"] = "False"
+          mediaplayerstats[ctmpaudioreg]["controls"] = "False"
+          mediaplayerstats[ctmpaudioreg]["controlss"] = "False"
+          If txt[txtarrind[i2]]["line"+i]["data"]["7"] then
+            mediaplayerstats[ctmpaudioreg]["controls"] = "True"
+          EndIf
+          LDGraphicsWindow.ResumeUpdates()
+          Shapes.HideShape(object[txtarrind[i2]][i])
+          LDShapes.SetShapeEvent(ctmpaudioreg)
+          LDShapes.SetShapeEvent(mediaplayerstats[ctmpaudioreg]["ph"])
+          If mediaplayerstats[ctmpaudioreg]["ismusic"] Then
+            LDShapes.SetShapeEvent(mediaplayerstats[ctmpaudioreg]["musicimg"])
+          EndIf
+        EndIf
+        If object[txtarrind[i2]][i] = "" Then
+          object[txtarrind[i2]][i] = "-"
+        Else
+          LDQueue.Enqueue("DOBJ",object[txtarrind[i2]][i])
+          dobjarr[object[txtarrind[i2]][i]] = txt[txtarrind[i2]]["line"+i]
+          FCControls.RegisterMouseMoveEvent(object[txtarrind[i2]][i],"debugobjsub")
+        EndIf
+      EndFor
+      per = per + aper
+      LDControls.ProgressBarValue(lbar,per)
+    EndFor
+    LDControls.ProgressBarValue(lbar,100)
+    LDCursors.Arrow()
+  EndIf
+EndSub
+
+Sub debugobjsub
+  If FCKeyboard.IsAltPressed Then
+    LDQueue.Enqueue("DEBUG","Line Data : " + ESLText.CRLF + dobjarr[FCControls.LastEventSource] + ESLText.CRLF + "Location (x,y) : "+ LDShapes.GetLeft(FCControls.LastEventSource) + "," + LDShapes.GetTop(FCControls.LastEventSource))
+  EndIf
+EndSub
